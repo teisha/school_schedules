@@ -1,0 +1,46 @@
+{
+    "week1": {
+        "Monday": {
+            "SYNC": ["Quest"],
+            "ASYNC": ["PE","Elective"]
+        },
+        "Tuesday": {
+            "SYNC": ["Quest", "Elective"],
+            "ASYNC": ["PE"]
+        },
+        "Wednesday": {
+            "SYNC": ["Quest"],
+            "ASYNC": ["PE","Elective"]
+        },
+        "Thursday": {
+            "SYNC": ["Quest", "Elective"],
+            "ASYNC": ["PE"]
+        },
+        "Friday": {
+            "SYNC": ["Quest"],
+            "ASYNC": ["PE","Elective"]
+        }                                
+    },
+    "week2": {
+        "Monday": {
+            "SYNC": ["Quest", "Elective"],
+            "ASYNC": ["PE"]
+        },
+        "Tuesday": {
+            "SYNC": ["Quest"],
+            "ASYNC": ["PE","Elective"]
+        },
+        "Wednesday": {
+            "SYNC": ["Quest", "Elective"],
+            "ASYNC": ["PE"]
+        },
+        "Thursday": {
+            "SYNC": ["Quest"],
+            "ASYNC": ["PE","Elective"]
+        },
+        "Friday": {
+            "SYNC": ["Quest", "Elective"],
+            "ASYNC": ["PE"]
+        }                                
+    }    
+}
