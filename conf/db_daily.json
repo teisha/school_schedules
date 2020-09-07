@@ -1,116 +1,117 @@
 {
-    "Times": { 
-        "1": {
-            "StartTime" : "08:40",
-            "StopTime": "09:30"
-        },
-        "2": {
-            "StartTime":"9:30",
-            "StopTime": "10:16"
-        },
-        "3": {
-            "StartTime":"11:20",
-            "StopTime": "12:05"
-        },
-        "4" : {
-            "StartTime": "12:05",
-            "StopTime": "12:49"
-        },
-        "5" : {
-            "StartTime": "12:53",
-            "StopTime": "13:38"
-        },
-        "6" : {
-            "StartTime": "13:38",
-            "StopTime": "14:22"
-        },
-        "7" : {
-            "StartTime": "14:26",
-            "StopTime": "15:11"
-        } ,  
-        "8" : {
-            "StartTime": "15:11",
-            "StopTime": "15:55"
-        },
-        "AM": {
-            "StartTime": "09:00",
-            "EndTime": "09:30"
-        }, 
-        "PM" : {
-            "StartTime": "13:30",
-            "EndTime": "14:00"
-        }                             
+  "name": "Delia",
+  "Times": {
+    "1": {
+      "StartTime": "08:40",
+      "StopTime": "09:30"
     },
-    "TERM1" : {
-        "AM": {
-            "Class": "Calendar Time",
-            "Category": "Quest"
-        },
-        "PM": {
-            "Class": "One On One Time",
-            "Category": "Quest"
-        },
-        "6": {
-            "Class": "Theater Arts",
-            "Category": "Elective"
-        },
-        "8": {
-            "Class": "Wellness 6",
-            "Category": "PE"
-        }
+    "2": {
+      "StartTime": "9:30",
+      "StopTime": "10:16"
     },
-    "TERM2" : {
-        "AM": {
-            "Class": "Calendar Time",
-            "Category": "Quest"
-        },
-        "PM": {
-            "Class": "One On One Time",
-            "Category": "Quest"
-        },
-        "6": {
-            "Class": "Theater Arts",
-            "Category": "Elective"
-        },
-        "8": {
-            "Class": "Wellness 6",
-            "Category": "PE"
-        }
+    "3": {
+      "StartTime": "11:20",
+      "StopTime": "12:05"
     },
-    "TERM3" : {
-        "AM": {
-            "Class": "Calendar Time",
-            "Category": "Quest"
-        },
-        "PM": {
-            "Class": "One On One Time",
-            "Category": "Quest"
-        },
-        "6": {
-            "Class": "Theater Arts",
-            "Category": "Elective"
-        },
-        "8": {
-            "Class": "Wellness 6",
-            "Category": "PE"
-        }
-    } ,
-    "TERM4" : {
-        "AM": {
-            "Class": "Calendar Time",
-            "Category": "Quest"
-        },
-        "PM": {
-            "Class": "One On One Time",
-            "Category": "Quest"
-        },
-        "6": {
-            "Class": "Theater Arts",
-            "Category": "Elective"
-        },
-        "8": {
-            "Class": "Wellness 6",
-            "Category": "PE"
-        }
-    }             
+    "4": {
+      "StartTime": "12:05",
+      "StopTime": "12:49"
+    },
+    "5": {
+      "StartTime": "12:53",
+      "StopTime": "13:38"
+    },
+    "6": {
+      "StartTime": "13:38",
+      "StopTime": "14:22"
+    },
+    "7": {
+      "StartTime": "14:26",
+      "StopTime": "15:11"
+    },
+    "8": {
+      "StartTime": "15:11",
+      "StopTime": "15:55"
+    },
+    "AM": {
+      "StartTime": "09:00",
+      "EndTime": "09:30"
+    },
+    "PM": {
+      "StartTime": "13:30",
+      "EndTime": "14:00"
+    }
+  },
+  "TERM1": {
+    "AM": {
+      "Class": "Calendar Time",
+      "Category": "Quest"
+    },
+    "PM": {
+      "Class": "One On One Time",
+      "Category": "Quest"
+    },
+    "6": {
+      "Class": "Theater Arts",
+      "Category": "Elective"
+    },
+    "8": {
+      "Class": "Wellness 6",
+      "Category": "PE"
+    }
+  },
+  "TERM2": {
+    "AM": {
+      "Class": "Calendar Time",
+      "Category": "Quest"
+    },
+    "PM": {
+      "Class": "One On One Time",
+      "Category": "Quest"
+    },
+    "6": {
+      "Class": "Theater Arts",
+      "Category": "Elective"
+    },
+    "8": {
+      "Class": "Wellness 6",
+      "Category": "PE"
+    }
+  },
+  "TERM3": {
+    "AM": {
+      "Class": "Calendar Time",
+      "Category": "Quest"
+    },
+    "PM": {
+      "Class": "One On One Time",
+      "Category": "Quest"
+    },
+    "6": {
+      "Class": "Theater Arts",
+      "Category": "Elective"
+    },
+    "8": {
+      "Class": "Wellness 6",
+      "Category": "PE"
+    }
+  },
+  "TERM4": {
+    "AM": {
+      "Class": "Calendar Time",
+      "Category": "Quest"
+    },
+    "PM": {
+      "Class": "One On One Time",
+      "Category": "Quest"
+    },
+    "6": {
+      "Class": "Theater Arts",
+      "Category": "Elective"
+    },
+    "8": {
+      "Class": "Wellness 6",
+      "Category": "PE"
+    }
+  }
 }

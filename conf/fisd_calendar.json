@@ -27,5 +27,9 @@
                 {"name": "Spring Break Day 5", "date": "03/19/2021"},
                 {"name": "Good Friday", "date": "04/02/2021"}],
     "Early Dismissals": [{"date": "12/18/2020"},
-                        {"date": "05/27/2021"}                ]
+                        {"date": "05/27/2021"}  ],
+    "Nine Weeks": [ {"name": "TERM1", "start":"08/31/2020", "end":"10/16/2020"},
+                    {"name": "TERM2", "start":"10/19/2020", "end":"12/18/2020"},
+                    {"name": "TERM3", "start":"01/04/2021", "end":"03/12/2021"},
+                    {"name": "TERM4", "start":"03/22/2021", "end":"05/27/2021"}]                        
     }

@@ -31,8 +31,6 @@
     }
   },
   "TERM1": {
-    "StartDate": "08/31/2020",
-    "EndDate": "10/09/2020",
     "1": {
       "Class": "Pre AP English 2",
       "Category": "English"
@@ -62,9 +60,7 @@
       "Category": "Math"
     }
   },
-  "TERM2": {
-    "StartDate": "10/13/2020",
-    "EndDate": "12/18/2020",      
+  "TERM2": {    
     "1": {
       "Class": "Pre AP English 2",
       "Category": "English"
@@ -94,9 +90,7 @@
       "Category": "Math"
     }
   },
-  "TERM3": {
-    "StartDate": "01/05/2021",
-    "EndDate": "03/12/2021",      
+  "TERM3": {     
     "1": {
       "Class": "Pre AP English 2",
       "Category": "English"
@@ -126,9 +120,7 @@
       "Category": "Math"
     }
   },
-  "TERM4": {
-    "StartDate": "03/22/2021",
-    "EndDate": "05/27/2021",       
+  "TERM4": {    
     "1": {
       "Class": "Pre AP English 2",
       "Category": "English"
