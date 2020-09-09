@@ -13,7 +13,7 @@
             "ASYNC": ["PE","Elective"]
         },
         "Thursday": {
-            "SYNC": ["Quest", "Elective"],
+            "SYNC": ["Quest", "Elective", "OT"],
             "ASYNC": ["PE"]
         },
         "Friday": {

@@ -33,21 +33,29 @@
       "StartTime": "15:11",
       "StopTime": "15:55"
     },
-    "AM": {
+    "1-AM": {
       "StartTime": "09:00",
       "EndTime": "09:30"
     },
-    "PM": {
+    "2-AM": {
+      "StartTime": "10:00",
+      "EndTime": "10:30"
+    },      
+    "2-PM": {
       "StartTime": "13:30",
       "EndTime": "14:00"
     }
   },
   "TERM1": {
-    "AM": {
+    "1-AM": {
       "Class": "Calendar Time",
       "Category": "Quest"
     },
-    "PM": {
+    "2-AM": {
+      "Class": "OT Therapy",
+      "Category": "OT"
+    },      
+    "2-PM": {
       "Class": "One On One Time",
       "Category": "Quest"
     },
@@ -61,11 +69,15 @@
     }
   },
   "TERM2": {
-    "AM": {
+    "1-AM": {
       "Class": "Calendar Time",
       "Category": "Quest"
     },
-    "PM": {
+    "2-AM": {
+      "Class": "OT Therapy",
+      "Category": "OT"
+    },      
+    "2-PM": {
       "Class": "One On One Time",
       "Category": "Quest"
     },
@@ -79,11 +91,15 @@
     }
   },
   "TERM3": {
-    "AM": {
+    "1-AM": {
       "Class": "Calendar Time",
       "Category": "Quest"
     },
-    "PM": {
+    "2-AM": {
+      "Class": "OT Therapy",
+      "Category": "OT"
+    },   
+    "2-PM": {
       "Class": "One On One Time",
       "Category": "Quest"
     },
@@ -97,11 +113,15 @@
     }
   },
   "TERM4": {
-    "AM": {
+    "1-AM": {
       "Class": "Calendar Time",
       "Category": "Quest"
     },
-    "PM": {
+    "2-AM": {
+      "Class": "OT Therapy",
+      "Category": "OT"
+    },      
+    "2-PM": {
       "Class": "One On One Time",
       "Category": "Quest"
     },

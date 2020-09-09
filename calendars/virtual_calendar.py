@@ -45,13 +45,16 @@ class VirtualCalendar:
         virtual_options = self.get_week_schedule(date)
         print (virtual_options)
         for period in virtual_schedule:
-            virtual_option = "SYNC"
             category = schedule.get(period).get("Category")
             async_list = virtual_options.get("ASYNC")
+            sync_list = virtual_options.get("SYNC")
             if category in async_list:
-                virtual_option = "ASYNC"
+                virtual_schedule.get(period).update({"virtual_option": "ASYNCHRONOUS", "has_class": True})
+            elif category in sync_list:
+                virtual_schedule.get(period).update({"virtual_option": "SYNCHRONOUS", "has_class": True})   
+            else:
+                virtual_schedule.get(period).update({"has_class": False})                           
             # print(virtual_schedule.get(period), virtual_option)                
-            virtual_schedule.get(period).update({"virtual_option": virtual_option})
         return virtual_schedule            
 
 
