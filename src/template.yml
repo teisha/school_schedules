@@ -52,7 +52,7 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName:
-        !Sub: ${ProjectName}-1.0
+        Ref: ProjectName
       Cors:
         AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
         AllowHeaders: "'Content-Type,Authorization'"
@@ -88,7 +88,7 @@ Resources:
   GetSchedule:
     Type: "AWS::Serverless::Function"
     Properties:
-      Handler: get_schedule_lambda.handler
+      Handler: lambda_get_schedule.handler
       Runtime: python3.8
       Policies:
         - Version: "2012-10-17"
@@ -112,7 +112,7 @@ Resources:
   SchedulerApiHandler:
     Type: "AWS::Serverless::Function"
     Properties:
-      Handler: scheduler_api.handler
+      Handler: lambda_scheduler_api.handler
       Runtime: python3.8
       Policies:
         - Version: "2012-10-17"
@@ -188,12 +188,12 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref Api
-            Path: "/scheduler/{districtId}/schools/{schoolId}"
+            Path: "/scheduler/{districtId}/schedule/{startYear}"
             Method: DELETE            
-  GetScheduleApiPermission:
+  SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
-      FunctionName: { "Fn::GetAtt": [GetScheduleApiHandler, Arn] }
+      FunctionName: { "Fn::GetAtt": [SchedulerApiHandler, Arn] }
       Action: "lambda:InvokeFunction"
       Principal: connect.amazonaws.com
       SourceAccount:
@@ -305,9 +305,7 @@ Resources:
 Outputs:
   CogntioRedirectUri:
     Description: Redirect URI to front end from Cognito User Pool
-    Value: 
-      - !Sub https://${ClientCloudFrontDistro.DomainName}/auth
-      - localhost:3000/auth
+    Value: !Sub https://${ClientCloudFrontDistro.DomainName}/auth
   CognitoClientId:
     Description: Cognito client ID
     Value: !Ref CognitoFrontEndClient

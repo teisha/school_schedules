@@ -1,9 +1,14 @@
 import json
+import os
 from _datetime import datetime
 
 class StudentCalendar:
     def __init__(self, user:str):
-        daily_filename = 'conf/{}_daily.json'.format(user)
+        daily_filename = 'calendars/conf/{}_daily.json'.format(user)
+        # op=os.system("date && ps -raxxxo pid,%cpu,%mem,vsize,time,command | grep -E 'java|gui' ")
+        # print( ' -------- ')
+        # print(os.getcwd())
+        # print( os.listdir(os.getcwd()) )
         with open(daily_filename) as f:
             self.daily_schedule = json.load(f)
         # print(self.daily_schedule)

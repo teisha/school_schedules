@@ -3,9 +3,10 @@ from _datetime import datetime
 
 class SchoolCalendar:
     def __init__(self):
-        with open('conf/fisd_calendar.json') as f:
+        with open('calendars/conf/fisd_calendar.json') as f:
             self.fisd_schedule = json.load(f) 
-        self.start_date = self.fisd_schedule.get("StartDate")           
+        self.start_date = self.fisd_schedule.get("StartDate")
+        # print(self.fisd_schedule)           
 
     def is_holiday(self, date: datetime):
         if not self.is_in_school_year(date):
