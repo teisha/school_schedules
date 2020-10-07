@@ -1,1 +1,0 @@
-C:\git\school_schedules\calendar_env\Scripts\python.exe C:\git\school_schedules\src\ask_the_question.py
