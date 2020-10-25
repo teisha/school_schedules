@@ -6,17 +6,37 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "export": "next export",
+    "lint": "eslint --ext .ts --ext .tsx .",
+    "lint-warn": "eslint --ext .ts --ext .tsx . -c .eslintrc.warn.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
     "bootstrap": "^4.5.2",
+    "eslint": "^7.12.0",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@types/enzyme": "^3.10.7",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.15",
     "@types/node": "^14.11.2",
+    "@types/node-fetch": "^2.5.7",
     "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "enzyme-to-json": "^3.6.1",
+    "jest": "^26.6.1",
+    "react-test-renderer": "^17.0.1",
+    "ts-jest": "^26.4.2",
     "typescript": "^4.0.3"
   }
 }

@@ -2,6 +2,8 @@
     width: 100%;
     height: 100%;
     background-color: var(--l3-color);
+    font-size: x-small;
+    padding-top: 3em;
 }
 
 
@@ -13,7 +15,9 @@
 }
 
 .menuItem {
+    background-color: inherit;
+    color: #000;
+    font-weight: bold;
+    font-style: oblique;
     margin-left: 0;
-    padding-top: 1em;
-    font-size: smaller;
 }

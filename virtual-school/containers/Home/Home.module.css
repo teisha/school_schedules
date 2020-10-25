@@ -96,6 +96,20 @@
 .Grid {
   max-width: 80%;
   margin-top: 3rem;
+  align-items: center;
+}
+
+.Card {
+  width: 18rem;
+  background-color: var(--l1-color);
+  border: 1px var(--d2-color);
+  padding: 5em;
+}
+
+.CardImage {
+  width: 50%;
+  height: auto;
+  margin: auto
 }
 
 .Logo {
