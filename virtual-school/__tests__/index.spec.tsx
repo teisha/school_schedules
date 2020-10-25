@@ -3,8 +3,8 @@ import React from 'react';
 import App from '../pages/index';
 
 describe('With Enzyme', () => {
-  it('App shows "A simple example repo" in a <p> tag', () => {
+  it('App shows "Virtual School" in a <title> tag', () => {
     const app = shallow(<App />);
-    expect(app.find('p').text()).toEqual('A simple example repo');
+    expect(app.find('title').text()).toEqual(' Virtual School ');
   });
 });
