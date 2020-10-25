@@ -1,7 +1,7 @@
 
 import styles from './Home.module.css'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 const Home = (): ReactElement => {
   return (
