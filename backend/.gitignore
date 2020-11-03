@@ -1,4 +1,7 @@
 calendar_env
+windows_env
+venv
+venv_linux
 .vscode
 __pycache__
 .aws-sam

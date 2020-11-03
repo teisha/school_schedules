@@ -36,7 +36,7 @@ class SchoolCalendar:
 def date_in_term(date: datetime, term: dict):
     start_of_term = datetime.strptime(term.get("start"), "%m/%d/%Y" )
     end_of_term = datetime.strptime(term.get("end"), "%m/%d/%Y" )
-    if start_of_term.date() < date.date() and end_of_term.date() > date.date():
+    if start_of_term.date() <= date.date() and end_of_term.date() >= date.date():
         return True
     else:
         return False

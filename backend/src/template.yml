@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Transform: "AWS::Serverless-2016-10-31"
+Transform: AWS::Serverless-2016-10-31
 Description: "SAM template for school scheduling project to figure out schedules in the virtual space"
 Parameters:
   ProjectName: 
@@ -31,7 +31,7 @@ Resources:
           AttributeType: S
         - AttributeName: sk
           AttributeType: S
-        - AttributeName: type
+        - AttributeName: start
           AttributeType: S
       KeySchema:
         - AttributeName: pk
@@ -40,9 +40,17 @@ Resources:
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
       GlobalSecondaryIndexes:
-        - IndexName: typeIndex
+        - IndexName: GSI1
           KeySchema:
-            - AttributeName: type
+          - AttributeName: sk
+            KeyType: HASH
+          - AttributeName: pk
+            KeyType: RANGE
+          Projection: 
+            ProjectionType: ALL      
+        - IndexName: startIndex
+          KeySchema:
+            - AttributeName: start
               KeyType: HASH
             - AttributeName: pk
               KeyType: RANGE
