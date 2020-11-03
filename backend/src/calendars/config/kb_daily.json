@@ -1,0 +1,173 @@
+{
+  "name": "Kiera",
+  "Times": {
+    "1": {
+      "StartTime": "08:45",
+      "StopTime": "09:35"
+    },
+    "2": {
+      "StartTime": "9:42",
+      "StopTime": "10:32"
+    },
+    "3": {
+      "StartTime": "10:39",
+      "StopTime": "11:32"
+    },
+    "4": {
+      "StartTime": "12:09",
+      "StopTime": "12:59"
+    },
+    "5": {
+      "StartTime": "13:06",
+      "StopTime": "13:56"
+    },
+    "6": {
+      "StartTime": "14:03",
+      "StopTime": "14:54"
+    },
+    "7": {
+      "StartTime": "15:01",
+      "StopTime": "15:53"
+    },
+    "8": {
+      "StartTime": "16:00",
+      "EndTime": "17:00"
+    }
+  },
+  "TERM1": {
+    "1": {
+      "Class": "Pre AP English 2",
+      "Category": "English"
+    },
+    "2": {
+      "Class": "AP World History",
+      "Category": "Social Studies"
+    },
+    "3": {
+      "Class": "Pre AP Chemistry",
+      "Category": "Science"
+    },
+    "4": {
+      "Class": "Small Animal Management",
+      "Category": "Elective"
+    },
+    "5": {
+      "Class": "French 2",
+      "Category": "World Language"
+    },    
+    "6": {
+      "Class": "Concert Band 2",
+      "Category": "Fine Arts"
+    },
+    "7": {
+      "Class": "Pre AP Geometry",
+      "Category": "Math"
+    },
+    "8": {
+      "Class": "French On Skype",
+      "Category": "External Lessons"
+    }
+  },
+  "TERM2": {    
+    "1": {
+      "Class": "Pre AP English 2",
+      "Category": "English"
+    },
+    "2": {
+      "Class": "AP World History",
+      "Category": "Social Studies"
+    },
+    "3": {
+      "Class": "Pre AP Chemistry",
+      "Category": "Science"
+    },
+    "4": {
+      "Class": "Small Animal Management",
+      "Category": "Elective"
+    },
+    "5": {
+      "Class": "French 2",
+      "Category": "World Language"
+    },    
+    "6": {
+      "Class": "Concert Band 2",
+      "Category": "Fine Arts"
+    },
+    "7": {
+      "Class": "Pre AP Geometry",
+      "Category": "Math"
+    },
+    "8": {
+      "Class": "French On Skype",
+      "Category": "External Lessons"
+    }
+  },
+  "TERM3": {     
+    "1": {
+      "Class": "Pre AP English 2",
+      "Category": "English"
+    },
+    "2": {
+      "Class": "AP World History",
+      "Category": "Social Studies"
+    },
+    "3": {
+      "Class": "Pre AP Chemistry",
+      "Category": "Science"
+    },
+    "4": {
+      "Class": "Equine Science",
+      "Category": "Elective"
+    },
+    "5": {
+      "Class": "French 2",
+      "Category": "World Language"
+    },    
+    "6": {
+      "Class": "Concert Band 2",
+      "Category": "Fine Arts"
+    },
+    "7": {
+      "Class": "Pre AP Geometry",
+      "Category": "Math"
+    },
+    "8": {
+      "Class": "French On Skype",
+      "Category": "External Lessons"
+    }
+  },
+  "TERM4": {    
+    "1": {
+      "Class": "Pre AP English 2",
+      "Category": "English"
+    },
+    "2": {
+      "Class": "AP World History",
+      "Category": "Social Studies"
+    },
+    "3": {
+      "Class": "Pre AP Chemistry",
+      "Category": "Science"
+    },
+    "4": {
+      "Class": "Equine Science",
+      "Category": "Elective"
+    },
+    "5": {
+      "Class": "French 2",
+      "Category": "World Language"
+    },    
+    "6": {
+      "Class": "Concert Band 2",
+      "Category": "Fine Arts"
+    },
+    "7": {
+      "Class": "Pre AP Geometry",
+      "Category": "Math"
+    },
+    "8": {
+      "Class": "French On Skype",
+      "Category": "External Lessons"
+    }
+  }
+}

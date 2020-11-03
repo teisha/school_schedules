@@ -3,7 +3,7 @@ from _datetime import datetime
 
 class SchoolCalendar:
     def __init__(self):
-        with open('calendars/conf/fisd_calendar.json') as f:
+        with open('calendars/config/fisd_calendar.json') as f:
             self.fisd_schedule = json.load(f) 
         self.start_date = self.fisd_schedule.get("StartDate")
         # print(self.fisd_schedule)           

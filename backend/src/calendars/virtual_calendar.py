@@ -15,7 +15,7 @@ class VirtualCalendar:
     calendar = [dict()]
 
     def __init__(self, user):
-        virtual_filename = 'calendars/conf/{}_virtual.json'.format(user)
+        virtual_filename = 'calendars/config/{}_virtual.json'.format(user)
         with open(virtual_filename) as f:
             self.virtual_schedule = json.load(f)        
 
