@@ -66,8 +66,8 @@ with table.batch_writer() as batch:
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK2|Tuesday",
-            'sync': ["Math", "Social Studies", "World Language", "Fine Arts"],
-            'async': ["English", "Science", "Elective", "PE", "External Lessons"]
+            'sync': ["Math", "Social Studies", "World Language", "Fine Arts", "External Lessons"],
+            'async': ["English", "Science", "Elective", "PE"]
             }
     ) 
     batch.put_item(

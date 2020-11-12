@@ -33,5 +33,6 @@ if __name__ == "__main__":
 
     question.what_is_my_schedule("db", (datetime.now() + timedelta(days=1)))
     question.what_is_my_schedule("kb", (datetime.now() + timedelta(days=1)))
+    question.what_is_my_schedule("kb", (datetime.now() + timedelta(days=24)))
     question.what_is_my_schedule("db", datetime.now() )
     question.what_is_my_schedule("kb", datetime.now() )

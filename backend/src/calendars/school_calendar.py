@@ -1,12 +1,20 @@
 import json
 from _datetime import datetime
+from contextlib import suppress
+import sys, os
+print(sys.path)
+from ..services.dynamodb_service import DynamoService
 
 class SchoolCalendar:
-    def __init__(self):
-        with open('calendars/config/fisd_calendar.json') as f:
-            self.fisd_schedule = json.load(f) 
+    fisd_schedule = dict()
+    def __init__(self, school: str):
+        self.yearStr = "2020"
+        self.school_name = school
+        with suppress(FileNotFoundError):
+            with open('calendars/config/fisd_calendar.json') as f:
+                self.fisd_schedule = json.load(f) 
         self.start_date = self.fisd_schedule.get("StartDate")
-        # print(self.fisd_schedule)           
+        print(self.fisd_schedule)           
 
     def is_holiday(self, date: datetime):
         if not self.is_in_school_year(date):
@@ -32,6 +40,18 @@ class SchoolCalendar:
         term_defs = self.fisd_schedule.get("Nine Weeks")
         current_term = next((term for term in term_defs if date_in_term(date, term)), None)  
         return current_term
+
+    def get_dynamo_calendar(self):
+        service = DynamoService(os.environ.get("SCHOOL_TABLE_NAME") )
+        key = "SCHOOL|{year}|{school}".format(year=self.yearStr, school=self.school_name)
+        self.fisd_schedule = service.queryOnPrimaryKey(key)    
+
+    def is_date_holiday(self, holiday_date: datetime):
+        str_date = holiday_date.strftime('%m/%d/%Y')
+        holiday_rec = next( (item for item in self.fisd_schedule \
+            if item["sk"].startswith("HOLIDAY") and item["start"] == str_date), None)
+        print("HOLIDAY REC {}".format(holiday_rec))
+        return holiday_rec != None
 
 def date_in_term(date: datetime, term: dict):
     start_of_term = datetime.strptime(term.get("start"), "%m/%d/%Y" )

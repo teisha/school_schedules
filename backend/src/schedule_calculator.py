@@ -20,7 +20,7 @@ class Calculator:
         self.user = user
         self.daily_calendar = StudentCalendar(user)
         self.virtual_calendar = VirtualCalendar(user)
-        self.school_calendar = SchoolCalendar()
+        self.school_calendar = SchoolCalendar("FISD")
         self.name = self.daily_calendar.name 
         self.virtual_calendar.set_name(self.name)    
         self.virtual_calendar.set_week_one(self.school_calendar.start_date)      
