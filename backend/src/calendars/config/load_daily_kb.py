@@ -62,19 +62,19 @@ with table.batch_writer() as batch:
             'start': "10:39",
             'end': "11:32",
             'TERMS|Nine Weeks 1':  {
-                "Class": "Pre AP Chemistry",
+                "Class": "Chemistry",
                 "Category": "Science"
             },
             'TERMS|Nine Weeks 2':  {
-                "Class": "Pre AP Chemistry",
+                "Class": "Chemistry",
                 "Category": "Science"
             },
             'TERMS|Nine Weeks 3':  {
-                "Class": "Pre AP Chemistry",
+                "Class": "Chemistry",
                 "Category": "Science"
             },
             'TERMS|Nine Weeks 4':  {
-                "Class": "Pre AP Chemistry",
+                "Class": "Chemistry",
                 "Category": "Science"
             }
         }

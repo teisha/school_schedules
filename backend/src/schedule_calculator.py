@@ -18,12 +18,16 @@ from calendars.virtual_calendar import VirtualCalendar
 class Calculator:
     def __init__(self, user:str):
         self.user = user
-        self.daily_calendar = StudentCalendar(user)
-        self.virtual_calendar = VirtualCalendar(user)
-        self.school_calendar = SchoolCalendar("FISD")
+        self.year = "2020"
+        self.daily_calendar = StudentCalendar(user, self.year)
+        self.daily_calendar.get_dynamo_calendar()
+        self.school_calendar = SchoolCalendar("FISD", self.year)
+        self.school_calendar.get_dynamo_calendar()
+        self.virtual_calendar = VirtualCalendar(user, self.year, self.school_calendar.start_date)
+        self.virtual_calendar.get_dynamo_calendar("08/31/2020")
         self.name = self.daily_calendar.name 
         self.virtual_calendar.set_name(self.name)    
-        self.virtual_calendar.set_week_one(self.school_calendar.start_date)      
+        # self.virtual_calendar.set_week_one(self.school_calendar.start_date)      
         # print ("Loaded calendars for ", self.name)   
 
     def is_there_school(self, date: datetime):

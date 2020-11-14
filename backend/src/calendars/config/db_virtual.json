@@ -1,46 +1,46 @@
 {
     "week1": {
         "Monday": {
-            "SYNC": ["Quest", "OTPT"],
-            "ASYNC": ["PE","Elective"]
+            "sync": ["Quest", "OTPT"],
+            "async": ["PE","Elective"]
         },
         "Tuesday": {
-            "SYNC": ["Quest", "Elective"],
-            "ASYNC": ["PE"]
+            "sync": ["Quest", "Elective"],
+            "async": ["PE"]
         },
         "Wednesday": {
-            "SYNC": ["Quest", "OTPT"],
-            "ASYNC": ["PE","Elective"]
+            "sync": ["Quest", "OTPT"],
+            "async": ["PE","Elective"]
         },
         "Thursday": {
-            "SYNC": ["Quest", "Elective", "OTPT"],
-            "ASYNC": ["PE"]
+            "sync": ["Quest", "Elective", "OTPT"],
+            "async": ["PE"]
         },
         "Friday": {
-            "SYNC": ["Quest"],
-            "ASYNC": ["PE","Elective"]
+            "sync": ["Quest"],
+            "async": ["PE","Elective"]
         }                                
     },
     "week2": {
         "Monday": {
-            "SYNC": ["Quest", "Elective", "OTPT"],
-            "ASYNC": ["PE"]
+            "sync": ["Quest", "Elective", "OTPT"],
+            "async": ["PE"]
         },
         "Tuesday": {
-            "SYNC": ["Quest"],
-            "ASYNC": ["PE","Elective"]
+            "sync": ["Quest"],
+            "async": ["PE","Elective"]
         },
         "Wednesday": {
-            "SYNC": ["Quest", "Elective", "OTPT"],
-            "ASYNC": ["PE"]
+            "sync": ["Quest", "Elective", "OTPT"],
+            "async": ["PE"]
         },
         "Thursday": {
-            "SYNC": ["Quest"],
-            "ASYNC": ["PE","Elective"]
+            "sync": ["Quest"],
+            "async": ["PE","Elective"]
         },
         "Friday": {
-            "SYNC": ["Quest", "Elective"],
-            "ASYNC": ["PE"]
+            "sync": ["Quest", "Elective"],
+            "async": ["PE"]
         }                                
     }    
 }

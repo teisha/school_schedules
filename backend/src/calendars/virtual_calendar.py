@@ -1,8 +1,11 @@
 
 from _datetime import datetime
 from enum import Enum
-import json
+from decimal import Decimal
+import sys, os, json
+print(sys.path)
 import copy
+from services.dynamodb_service import DynamoService
 
 Weekdays: Enum = Enum('Weekdays', [('mon' , "Monday"),('tue', "Tuesday"),
     ('wed', "Wednesday"),('thu', "Thursday"),('fri', "Friday")] )
@@ -14,7 +17,8 @@ Categories: Enum = Enum('Categories', [('mat', "Math"), ('eng', "English"),
 class VirtualCalendar:
     calendar = [dict()]
 
-    def __init__(self, user):
+    def __init__(self, user: str, yearStr: str):
+        self.yearStr = yearStr
         virtual_filename = 'calendars/config/{}_virtual.json'.format(user)
         with open(virtual_filename) as f:
             self.virtual_schedule = json.load(f)        
@@ -46,20 +50,49 @@ class VirtualCalendar:
         print (virtual_options)
         for period in virtual_schedule:
             category = schedule.get(period).get("Category")
-            async_list = virtual_options.get("ASYNC")
-            sync_list = virtual_options.get("SYNC")
+            async_list = virtual_options.get("async")
+            sync_list = virtual_options.get("sync")
             if category in async_list:
                 virtual_schedule.get(period).update({"virtual_option": "ASYNCHRONOUS", "has_class": True})
             elif category in sync_list:
                 virtual_schedule.get(period).update({"virtual_option": "SYNCHRONOUS", "has_class": True})   
             else:
                 virtual_schedule.get(period).update({"has_class": False})                           
-            # print(virtual_schedule.get(period), virtual_option)                
+            # print(virtual_schedule.get(period), virtual_options)                
+        # print (virtual_schedule)
         return virtual_schedule            
 
+    '''
+        ~~~~~~~~ DYNAMO IMPLEMENTATION ~~~~~~~~~~
+    '''  
+    def get_dynamo_calendar(self, school_start: str):
+        service = DynamoService(os.environ.get("SCHOOL_TABLE_NAME") )
+        # VIRTUAL_SCHEDULE|2020|Kiera
+        key = "VIRTUAL_SCHEDULE|{year}|{name}".format(year=self.yearStr, name=self.name)
+        self.virtual_schedule = service.queryOnPrimaryKey(key) 
+        self.start_date: datetime = datetime.strptime(school_start, "%m/%d/%Y")
+        self.week_one :int = int(self.start_date.strftime("%U") )
+        self.weeks_in_rotation: int = next((item.get("num_weeks") for item in self.virtual_schedule \
+            if item["sk"] == "SETTINGS"), 0)
+        self.get_week_schedule = self.get_schedule_for_day    
 
+    def get_schedule_for_day(self, date: datetime):
+        day_of_week = date.strftime("%A")
+        week_num: int = int(date.strftime("%U") )
+        if date.year > self.start_date.year:
+            week_num = 53 + int(date.strftime("%U"))        
+        week = (( week_num - self.week_one ) % 2 ) + 1
+        print("Day of week: {}, Week Number: {}, week: {}".format(day_of_week, week_num, week))
+        week_schedule = next( (item for item in self.virtual_schedule \
+            if item["sk"] == "WEEK{week}|{dow}".format(week=week,dow=day_of_week )) )
+        return week_schedule
 
+    '''
+        ~~~~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~
+    '''  
 
+    
+    # not used yet - thinking this would be for data entry
     def add_day(self, day_name: str, week_number: int, category_name: str, synch: bool):  
         day = next((weekday for weekday in Weekdays if weekday.value == day_name), None)    
         if day == None:
