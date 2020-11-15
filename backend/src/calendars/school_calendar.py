@@ -2,7 +2,7 @@ import json
 from _datetime import datetime
 from contextlib import suppress
 import sys, os
-print(sys.path)
+# print(sys.path)
 from services.dynamodb_service import DynamoService
 
 class SchoolCalendar:
@@ -64,7 +64,7 @@ class SchoolCalendar:
         str_date = holiday_date.strftime('%m/%d/%Y')
         holiday_rec = next( (item for item in self.fisd_schedule \
             if item["sk"].startswith("HOLIDAY") and item["start"] == str_date), None)
-        print("HOLIDAY REC {}".format(holiday_rec))
+        # print("HOLIDAY REC {}".format(holiday_rec))
         return holiday_rec if holiday_rec == None else \
             "NO SCHOOL: {}.".format(holiday_rec.get('sk').replace('HOLIDAY|', ''))
 

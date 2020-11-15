@@ -3,7 +3,7 @@ from _datetime import datetime
 from enum import Enum
 from decimal import Decimal
 import sys, os, json
-print(sys.path)
+# print(sys.path)
 import copy
 from services.dynamodb_service import DynamoService
 
@@ -19,30 +19,33 @@ class VirtualCalendar:
 
     def __init__(self, user: str, yearStr: str):
         self.yearStr = yearStr
-        virtual_filename = 'calendars/config/{}_virtual.json'.format(user)
-        with open(virtual_filename) as f:
-            self.virtual_schedule = json.load(f)        
+        self.name = user
+        # virtual_filename = 'calendars/config/{}_virtual.json'.format(user)
+        # with open(virtual_filename) as f:
+        #     self.virtual_schedule = json.load(f)        
 
-    def set_name(self, user_name):
-        self.name = user_name
-        # print ("Set calendar name to ", self.name)
 
     def set_week_one(self, school_start: str) :
         start_date = datetime.strptime(school_start, "%m/%d/%Y")
         self.start_date : datetime = start_date
         self.week_one :int = int(start_date.strftime("%U") )
 
-    def get_week_schedule(self, date: datetime):
-        day_of_week = date.strftime("%A")
-        week_num: int = int(date.strftime("%U") )
-        if date.year > self.start_date.year:
-            week_num = 53 + int(date.strftime("%U"))
-        week = "week1"            
-        if ( week_num - self.week_one ) % 2 == 1:
-            week = "week2"
-            print("week2")
-        week_sched = self.virtual_schedule.get(week)
-        return week_sched.get(day_of_week)
+
+    # def set_name(self, user_name):
+    #     self.name = user_name
+    #     # print ("Set calendar name to ", self.name)
+
+    # def get_week_schedule(self, date: datetime):
+    #     day_of_week = date.strftime("%A")
+    #     week_num: int = int(date.strftime("%U") )
+    #     if date.year > self.start_date.year:
+    #         week_num = 53 + int(date.strftime("%U"))
+    #     week = "week1"            
+    #     if ( week_num - self.week_one ) % 2 == 1:
+    #         week = "week2"
+    #         print("week2")
+    #     week_sched = self.virtual_schedule.get(week)
+    #     return week_sched.get(day_of_week)
 
     def add_virtual_week_to_schedule(self, date: datetime, schedule):
         virtual_schedule = copy.deepcopy(schedule)
@@ -82,7 +85,7 @@ class VirtualCalendar:
         if date.year > self.start_date.year:
             week_num = 53 + int(date.strftime("%U"))        
         week = (( week_num - self.week_one ) % 2 ) + 1
-        print("Day of week: {}, Week Number: {}, week: {}".format(day_of_week, week_num, week))
+        # print("Day of week: {}, Week Number: {}, week: {}".format(day_of_week, week_num, week))
         week_schedule = next( (item for item in self.virtual_schedule \
             if item["sk"] == "WEEK{week}|{dow}".format(week=week,dow=day_of_week )) )
         return week_schedule
@@ -91,7 +94,7 @@ class VirtualCalendar:
         ~~~~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~
     '''  
 
-    
+
     # not used yet - thinking this would be for data entry
     def add_day(self, day_name: str, week_number: int, category_name: str, synch: bool):  
         day = next((weekday for weekday in Weekdays if weekday.value == day_name), None)    

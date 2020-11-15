@@ -1,6 +1,6 @@
 import sys , os
 print(sys.path)
-from src.services.dynamodb_service import DynamoService
+from services.dynamodb_service import DynamoService
 import boto3
 session = boto3.session.Session(profile_name='power-user')
 
@@ -18,6 +18,8 @@ item={
     'start':  "15:11",
     'end': "15:55"
 }
+
+# Run tests from src directory /c/git/school_schedules/backend/src
 # python -m pytest -s tests/services/test_dynamodb_service.py >> printout.txt
 class TestDynamoService:
     table_name = 'visual-schedules-data-table'

@@ -6,15 +6,17 @@ from services.dynamodb_service import DynamoService
 class StudentCalendar:
     def __init__(self, user:str, yearStr: str):
         self.yearStr = yearStr
-        daily_filename = 'calendars/config/{}_daily.json'.format(user)
+        self.name = user
         # op=os.system("date && ps -raxxxo pid,%cpu,%mem,vsize,time,command | grep -E 'java|gui' ")
         # print( ' -------- ')
         # print(os.getcwd())
         # print( os.listdir(os.getcwd()) )
-        with open(daily_filename) as f:
-            self.daily_schedule = json.load(f)
-        # print(self.daily_schedule)
-        self.name = self.daily_schedule.get("name")
+
+        # daily_filename = 'calendars/config/{}_daily.json'.format(user)
+        # with open(daily_filename) as f:
+        #     self.daily_schedule = json.load(f)
+        # # print(self.daily_schedule)
+        # self.name = self.daily_schedule.get("name")
         # print("Loaded daily schedule for ", self.name)
 
 
@@ -44,13 +46,14 @@ class StudentCalendar:
         complete_schedule = dict()
         for class_period in self.daily_schedule:
             class_desc = class_period.get("TERMS|{}".format(term_name))
-            times = {class_period.get("sk").replace("PERIOD|", ""): {
-                    "Class": class_desc.get("Class"),
-                    "Category": class_desc.get("Category"),
-                    "StartTime": class_period.get("start"),
-                    "StopTime": class_period.get("end")
-                }} 
-            complete_schedule.update(times)  
-        print(complete_schedule)            
+            if class_desc != None:
+                times = {class_period.get("sk").replace("PERIOD|", ""): {
+                        "Class": class_desc.get("Class"),
+                        "Category": class_desc.get("Category"),
+                        "StartTime": class_period.get("start"),
+                        "StopTime": class_period.get("end")
+                    }} 
+                complete_schedule.update(times)  
+        # print(complete_schedule)            
         return complete_schedule    
 

@@ -118,7 +118,7 @@ Resources:
                 - Arn
               - index
               - typeIndex
-      CodeUri: s3://serverless-deploy-all-lsft-projects/1ad9a0acff93f9ec83f888bf9c490782
+      CodeUri: s3://serverless-deploy-all-lsft-projects/90cc82a0fd33aeb129ec765c664e4700
   SchedulerApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -206,7 +206,7 @@ Resources:
               Ref: Api
             Path: /scheduler/{districtId}/schedule/{startYear}
             Method: DELETE
-      CodeUri: s3://serverless-deploy-all-lsft-projects/1ad9a0acff93f9ec83f888bf9c490782
+      CodeUri: s3://serverless-deploy-all-lsft-projects/90cc82a0fd33aeb129ec765c664e4700
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:

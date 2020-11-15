@@ -9,11 +9,12 @@ dynamodb = boto3.resource("dynamodb")
 class DynamoService:
     def __init__(self, tableName: str):
         self._table = dynamodb.Table(tableName)
-        print("Querying {}".format(self._table.table_name) )
+        # print("Querying {}".format(self._table.table_name) )
 
     def get_data(self, pk: str, sk: str):
         print("Query for pk:{} sk:{}".format(pk, sk))            
         data = self._table.get_item( Key = { 'pk': pk, 'sk': sk })
+        print ("DATA RETURNED: %s" % data)
         return data.get('Item', None)
 
     def put_data(self, pk: str, sk: str, **attributes):

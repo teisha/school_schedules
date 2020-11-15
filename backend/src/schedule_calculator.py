@@ -1,4 +1,4 @@
-import sys
+import sys, os
 sys.path.insert(0, 'calendars')
 from _datetime import datetime
 
@@ -17,16 +17,17 @@ from calendars.virtual_calendar import VirtualCalendar
 
 class Calculator:
     def __init__(self, user:str):
+        os.environ["SCHOOL_TABLE_NAME"] = 'visual-schedules-data-table'
         self.user = user
         self.year = "2020"
         self.daily_calendar = StudentCalendar(user, self.year)
         self.daily_calendar.get_dynamo_calendar()
+        self.name = self.daily_calendar.name 
         self.school_calendar = SchoolCalendar("FISD", self.year)
         self.school_calendar.get_dynamo_calendar()
-        self.virtual_calendar = VirtualCalendar(user, self.year, self.school_calendar.start_date)
-        self.virtual_calendar.get_dynamo_calendar("08/31/2020")
-        self.name = self.daily_calendar.name 
-        self.virtual_calendar.set_name(self.name)    
+        self.virtual_calendar = VirtualCalendar(user, self.year)
+        self.virtual_calendar.get_dynamo_calendar(self.school_calendar.start_date)
+        # self.virtual_calendar.set_name(self.name)    
         # self.virtual_calendar.set_week_one(self.school_calendar.start_date)      
         # print ("Loaded calendars for ", self.name)   
 
@@ -37,10 +38,10 @@ class Calculator:
             return dict(schedule=None, message=is_holiday, name=self.name)
 
         self.term = self.school_calendar.get_term(date)
-        print ("Schedule for TERM: ", self.term.get("name"))
+        print ("Schedule for TERM: ", self.term)
         schedule = None
         try:
-            schedule = self.daily_calendar.get_schedule_for_date(date, self.term.get("name"))
+            schedule = self.daily_calendar.get_schedule_for_date(date, self.term)
             schedule = self.virtual_calendar.add_virtual_week_to_schedule(date, schedule)
         except:
             raise RuntimeError("Could not derive schedule for {}".format(self.name))
