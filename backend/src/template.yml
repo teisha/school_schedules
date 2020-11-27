@@ -17,7 +17,8 @@ Globals:
         LOGGING_LEVEL: "INFO"
         DYNAMO_TABLE:
           Ref: DataTable
-
+        SESSION_TABLE:
+          Ref: SessionTable
 Resources:
   DataTable:
     Type: "AWS::DynamoDB::Table"
@@ -56,6 +57,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
+
   Api:
     Type: AWS::Serverless::Api
     Properties:
@@ -92,7 +94,7 @@ Resources:
           CognitoAuth:
             UserPoolArn: !GetAtt CognitoUserPool.Arn
         AddDefaultAuthorizerToCorsPreflight: False
-
+ 
   GetSchedule:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -115,7 +117,7 @@ Resources:
                           - DataTable
                           - Arn
                       - index
-                      - typeIndex
+                      - startIndex
 
   SchedulerApiHandler:
     Type: "AWS::Serverless::Function"
@@ -141,13 +143,13 @@ Resources:
                           - DataTable
                           - Arn
                       - index
-                      - typeIndex
+                      - startIndex                   
             - Effect: Allow
               Action:
                 - "polly:SynthesizeSpeech"
               Resource:
                 - "*"
-      Events:
+      Events:      
         GetDistricts:
           Type: Api
           Properties:

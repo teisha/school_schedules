@@ -22,10 +22,14 @@ class DynamoService:
             'pk': pk,
             'sk': sk
         }
+        print("ATTTRIBUTES")
         for param, value in attributes.items():
             item.update({param: value}) 
         print("Add to dynamo:  item:{}".format(item))
-        self._table.put_item(Item=item)
+        result = self._table.put_item(Item=item)
+        return { 'http_status': result.get("ResponseMetadata").get("HTTPStatusCode"),
+            'item': item}
+        
 
     def delete_data(self, pk: str, sk: str):
         self._table.delete_item( Key = { 'pk': pk, 'sk': sk })

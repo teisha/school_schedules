@@ -1,8 +1,15 @@
-require('dotenv').config()
+
+let config = {}
+if (process.env.NODE_ENV == "development") {
+    config = require("./environment/config.development.js")
+} else {
+    config = require("./envitonment/config.production.js")
+}
 
 module.exports = {
     env: {
-        STEP: process.env.MY_STEP,
+        DYNAMODB: config.data_table,
+        config: config.cognito_config
     },
     serverRuntimeConfig: {
         // Will only be available on the server side

@@ -1,6 +1,6 @@
-import { LoginModelBuilder } from '../../models/builder/LoginModelBuilder';
-import { ILoginData } from '../../models/ILoginData';
-import { LoginModel } from '../../models/LoginModel';
+import { LoginModelBuilder } from '../../../virtual-school/models/builder/LoginModelBuilder';
+import { ILoginData } from '../../../virtual-school/models/ILoginData';
+import { LoginModel } from '../../../virtual-school/models/LoginModel';
 
 
 import { DynamoService } from "../DynamoService";

@@ -1,5 +1,5 @@
 import { DataMapper, DeleteOptions, GetOptions, PutOptions } from "@aws/dynamodb-data-mapper";
-import { DynamoDbItem } from "../models/DynamoDbItem";
+import { DynamoDbItem } from "../../virtual-school/models/DynamoDbItem";
 
 export class DynamoService {
     private mapper: DataMapper;

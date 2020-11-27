@@ -16,10 +16,10 @@ module.exports = {
         }
     },
     rules: {
-        indent: ['error', 2],
+        indent: ['error', 4],
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'],
-        'no-console': 'warn',
+        'no-console': 'off',
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': [
             'error',

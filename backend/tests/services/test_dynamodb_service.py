@@ -1,8 +1,6 @@
 import sys , os
 print(sys.path)
-from services.dynamodb_service import DynamoService
-import boto3
-session = boto3.session.Session(profile_name='power-user')
+
 
 test_item = {
     'pk': "IAMATEST|ITEM",
@@ -22,10 +20,9 @@ item={
 # Run tests from src directory /c/git/school_schedules/backend/src
 # python -m pytest -s tests/services/test_dynamodb_service.py >> printout.txt
 class TestDynamoService:
-    table_name = 'visual-schedules-data-table'
-    service = DynamoService(table_name)
 
-    def test_get_data(self):
+    def test_get_data(self, get_db):
+        self.service = get_db
         actual_item = self.service.get_data('KID_SCHEDULE|2020|Delia', 'PERIOD|8')
         # runThis = galvestonCounty.GalvestonCountyRunner()
         # runThis.get_friendswood_detail()
@@ -33,7 +30,8 @@ class TestDynamoService:
         print(actual_item)
         assert actual_item == item           
 
-    def test_put_data(self):
+    def test_put_data(self, get_db):
+        self.service = get_db
         pk = test_item.get('pk')
         sk = test_item.get('sk')
         self.service.delete_data(pk, sk)

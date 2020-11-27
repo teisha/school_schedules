@@ -26,5 +26,11 @@
   "editor.renderWhitespace": "boundary",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#fcf7f7ec",
+    "titleBar.inactiveForeground": "#000000CC",
+    "titleBar.activeBackground": "#48024e",
+    "titleBar.inactiveBackground": "#ea00ff"
   }
 }
