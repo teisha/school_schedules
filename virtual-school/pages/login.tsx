@@ -8,7 +8,7 @@ export type LoginInputs = {
   password: string
 }
 
-const Login:React.FC<{}> = ()  => {
+const Login: React.FC<{}> = ()  => {
     const cognito = new CognitoService();    
 
 
@@ -44,17 +44,23 @@ const Login:React.FC<{}> = ()  => {
             {error ? <p>Error: {error}</p> : null}
 
             {/* Option for Signup - use AdminCreateUser or SignUp action from aws-sdk */}
+            {/* Makes sure emails are lowercased */}
             {/* https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html */}
             {/* https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
              */}
-            <form className="container mx-auto max-w-sm" onSubmit={handleSubmit}>
+            {
+                cognito.isUserSignedIn() 
+                    ? <h1> USER IS LOGGED IN </h1>
+                    :
+                    <form className="container mx-auto max-w-sm" onSubmit={handleSubmit}>
 
-                <div>
-                    <small><strong>user:</strong> rickety_cricket@example.com</small>
-                    <small><strong>password:</strong> {process.env.NODE_ENV} </small>
-                </div>
-                <button type="submit">Go To Login</button>
-            </form>
+                        <div>
+                            <small><strong>user:</strong> rickety_cricket@example.com</small>
+                            <small><strong>password:</strong> {process.env.NODE_ENV} </small>
+                        </div>
+                        <button type="submit">Go To Login</button>
+                    </form>
+            }
         </>
     )
 }

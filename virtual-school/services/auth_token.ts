@@ -1,5 +1,5 @@
-import * as _ from "lodash" 
-import jwtDecode from "jwt-decode";
+import * as _ from 'lodash' 
+import jwtDecode from 'jwt-decode';
 
 
 
@@ -12,37 +12,37 @@ export class AuthToken {
   readonly decodedToken: DecodedToken;
 
   constructor(readonly token?: string) {
-    // we are going to default to an expired decodedToken
-    this.decodedToken = { email: "", exp: 0 };
+      // we are going to default to an expired decodedToken
+      this.decodedToken = { email: '', exp: 0 };
 
-    // then try and decode the jwt using jwt-decode
-    try {
-      if  (token) {
-        const authResponse = _.fromPairs(
-          _.map(token.split('&'), param => {
-            return param.split('=');
-          })
-        );
-        this.decodedToken = jwtDecode(authResponse);
+      // then try and decode the jwt using jwt-decode
+      try {
+          if  (token) {
+              const authResponse = _.fromPairs(
+                  _.map(token.split('&'), param => {
+                      return param.split('=');
+                  })
+              );
+              this.decodedToken = jwtDecode(authResponse);
+          }
+      } catch (e) {
       }
-    } catch (e) {
-    }
   }
 
   get authorizationString() {
-    return `Bearer ${this.token}`;
+      return `Bearer ${this.token}`;
   }
 
   get expiresAt(): Date {
-    return new Date(this.decodedToken.exp * 1000);
+      return new Date(this.decodedToken.exp * 1000);
   }
 
   get isExpired(): boolean {
-    return new Date() > this.expiresAt;
+      return new Date() > this.expiresAt;
   }
 
   get isValid(): boolean {
-    return !this.isExpired;
+      return !this.isExpired;
   }
 
 
