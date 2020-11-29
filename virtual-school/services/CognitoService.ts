@@ -4,6 +4,7 @@ import Router from 'next/router'
 import ICognitoConfig from '../models/ICognitoConfig'
 import jwtDecode from 'jwt-decode';
 import IUser from '../models/IUser';
+import IAuthToken from '../models/IAuthToken';
 
 
 export class CognitoService {
@@ -25,7 +26,7 @@ export class CognitoService {
     }
 
     validateToken(token: string, config: ICognitoConfig): boolean {
-        console.log("VALIDATE TOKEN:")
+        console.log('VALIDATE TOKEN:')
         console.log(token)
         const data = jwtDecode(token);
         return data['aud'] == config.cognito_client_id
@@ -52,12 +53,16 @@ export class CognitoService {
     //   "iat": 1606507750,
     //   "email": "ahsiet4@yahoo.com"
     // }
-    parseIdToken(token: string): IUser {
+    parseIdToken(token: string): IAuthToken {
         const data = jwtDecode(token);
         console.log(data);
         return {
-            username: data['cognito:username'],
+            rawtoken: token,
+            cognito_username: data['cognito:username'],
             email: data['email'],
+            auth_time: data['auth_time'],
+            expires: data['exp'],
+            issued_at: data['iat']
         };
     }
 

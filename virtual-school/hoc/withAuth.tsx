@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import  Router  from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
+import authContext from '../context/auth-context';
 import {CognitoService} from '../services/CognitoService'
 
 const withAuth = ({ component: Component }) => {
+    const context = useContext(authContext);
     const cognito = new CognitoService();
     const isLoggedIn = (): boolean => {
-        if  (cognito.isUserSignedIn() ) {
+        const token: string = context.token?.rawtoken;
+        if  (!token && cognito.isUserSignedIn() ) {
+            context.login(token)
+
             // is AuthToken set in context
             // if not set in context
             // cognito.getAuthToken() 
@@ -15,7 +20,7 @@ const withAuth = ({ component: Component }) => {
             // is expired token?
 
             // if expired, refresh token 
-            console.log("SIGNED IN!")
+            console.log('SIGNED IN!')
             return true
         } else {
             return false

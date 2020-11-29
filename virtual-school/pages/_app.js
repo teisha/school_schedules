@@ -2,10 +2,14 @@
 /* eslint-disable indent */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
+import GlobalState from '../context/GlobalState'
+
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <GlobalState>
+      <Component {...pageProps} />
+    </GlobalState>
   )
 }
 

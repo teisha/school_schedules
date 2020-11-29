@@ -8,6 +8,7 @@ import services.dynamodb_service as dbs
 logger = logging.getLogger()
 logger.setLevel(logging.getLevelName(os.environ["LOGGING_LEVEL"]) )
 
+#Not Needed, but keeping because I spent time thinking it through.
 
 def handler(event: any, context: any):
     logger.info("event: {}".format(json.dumps(event) ))
