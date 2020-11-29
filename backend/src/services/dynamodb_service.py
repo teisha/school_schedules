@@ -38,3 +38,18 @@ class DynamoService:
         return self._table.query(
             KeyConditionExpression=Key("pk").eq(key)
         )["Items"]        
+
+    def update_data (self, pk: str, sk: str, update_field: str, update_value):
+        key = {
+            'pk': pk,
+            'sk': sk
+        }
+        update_expression = f'set {update_field} = :value'
+        return self._table.update_item(
+            Key = key,
+            UpdateExpression = update_expression,
+            ExpressionAttributeValues={
+                ':value': update_value
+            },
+            ReturnValues='UPDATED_NEW'
+        )

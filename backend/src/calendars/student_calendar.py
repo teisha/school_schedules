@@ -35,7 +35,7 @@ class StudentCalendar:
         ~~~~~~~~ DYNAMO IMPLEMENTATION ~~~~~~~~~~
     '''  
     def get_dynamo_calendar(self):
-        service = DynamoService(os.environ.get("SCHOOL_TABLE_NAME") )
+        service = DynamoService(os.environ.get("DYNAMO_TABLE") )
         # KID_SCHEDULE|2020|Kiera
         key = "KID_SCHEDULE|{year}|{name}".format(year=self.yearStr, name=self.name)
         self.daily_schedule = service.queryOnPrimaryKey(key) 

@@ -17,7 +17,10 @@ item={
     'end': "15:55"
 }
 
+
+
 # Run tests from src directory /c/git/school_schedules/backend/src
+# ../venv_linux/bin/python -m pytest -s ../tests/services/test_dynamodb_service.py
 # python -m pytest -s tests/services/test_dynamodb_service.py >> printout.txt
 class TestDynamoService:
 
@@ -39,3 +42,15 @@ class TestDynamoService:
 
         self.service.put_data(pk, sk, start='10/1/2001', end='12/12/2012', databit='empty')
         assert self.service.get_data(pk, sk) == test_item
+
+    def test_update_data(self, get_db):
+        expected_item = test_item.copy()
+        expected_item.update({'updated_attr': 'updated'})
+        self.service = get_db
+        pk = test_item.get('pk')
+        sk = test_item.get('sk')
+        self.service.put_data(pk, sk, start='10/1/2001', end='12/12/2012', databit='empty')
+        assert self.service.get_data(pk, sk) == test_item
+
+        self.service.update_data(pk, sk, 'updated_attr', 'updated')
+        assert self.service.get_data(pk, sk) == expected_item

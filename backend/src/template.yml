@@ -185,11 +185,6 @@ UserApiHandler:
                           - Arn
                       - index
                       - startIndex                   
-            - Effect: Allow
-              Action:
-                - "polly:SynthesizeSpeech"
-              Resource:
-                - "*"
       Events:      
         GetDistricts:
           Type: Api

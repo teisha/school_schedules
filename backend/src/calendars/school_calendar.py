@@ -46,7 +46,7 @@ class SchoolCalendar:
     '''        
 
     def get_dynamo_calendar(self):
-        service = DynamoService(os.environ.get("SCHOOL_TABLE_NAME") )
+        service = DynamoService(os.environ.get("DYNAMO_TABLE") )
         key = "SCHOOL|{year}|{school}".format(year=self.yearStr, school=self.school_name)
         self.fisd_schedule = service.queryOnPrimaryKey(key)  
         self.start_date =  next( (item.get('start', None) for item in self.fisd_schedule if item['sk'] == 'SCHEDULE'), 

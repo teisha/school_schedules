@@ -1,3 +1,4 @@
+import os
 from _datetime import datetime, timedelta
 from schedule_calculator import Calculator
 
@@ -7,6 +8,7 @@ class Questioner:
     def __init__(self):
         print(" ")
         self.today = datetime.now()
+        os.environ["DYNAMO_TABLE"] = 'visual-schedules-data-table'
 
     def what_is_my_schedule(self, student: str, date: datetime) :
         calculator = Calculator(student)

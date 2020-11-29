@@ -69,7 +69,7 @@ class VirtualCalendar:
         ~~~~~~~~ DYNAMO IMPLEMENTATION ~~~~~~~~~~
     '''  
     def get_dynamo_calendar(self, school_start: str):
-        service = DynamoService(os.environ.get("SCHOOL_TABLE_NAME") )
+        service = DynamoService(os.environ.get("DYNAMO_TABLE") )
         # VIRTUAL_SCHEDULE|2020|Kiera
         key = "VIRTUAL_SCHEDULE|{year}|{name}".format(year=self.yearStr, name=self.name)
         self.virtual_schedule = service.queryOnPrimaryKey(key) 

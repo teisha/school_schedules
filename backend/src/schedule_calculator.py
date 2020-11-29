@@ -17,7 +17,6 @@ from calendars.virtual_calendar import VirtualCalendar
 
 class Calculator:
     def __init__(self, user:str):
-        os.environ["SCHOOL_TABLE_NAME"] = 'visual-schedules-data-table'
         self.user = user
         self.year = "2020"
         self.daily_calendar = StudentCalendar(user, self.year)
