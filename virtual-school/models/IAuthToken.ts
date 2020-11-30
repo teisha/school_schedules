@@ -5,6 +5,7 @@ export default interface IAuthToken {
     auth_time?: number;
     expires?: number;
     issued_at?: number;
+    is_expired: boolean;
 }
 
 

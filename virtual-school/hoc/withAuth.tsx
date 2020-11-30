@@ -2,23 +2,25 @@
 import  Router  from 'next/router';
 import React, { useContext } from 'react';
 import authContext from '../context/auth-context';
+import IAuthToken from '../models/IAuthToken';
 import {CognitoService} from '../services/CognitoService'
 
 const withAuth = ({ component: Component }) => {
     const context = useContext(authContext);
     const cognito = new CognitoService();
     const isLoggedIn = (): boolean => {
-        const token: string = context.token?.rawtoken;
-        if  (!token && cognito.isUserSignedIn() ) {
-            context.login(token)
+        let token: IAuthToken = context.token;
+        // if the token was lost in the session, but is
+        // in localstorage, load it into the session state
+        if (!token && cognito.isUserSignedIn()) {
+            context.login(cognito.getAuthToken())
+            token = context.token;
+        }
 
-            // is AuthToken set in context
-            // if not set in context
-            // cognito.getAuthToken() 
-            //  convert to AuthToken
-            //  set in context
-            // is expired token?
+        context.checkExpired();
 
+        if (token && !token.is_expired) {
+            // TODO: 
             // if expired, refresh token 
             console.log('SIGNED IN!')
             return true

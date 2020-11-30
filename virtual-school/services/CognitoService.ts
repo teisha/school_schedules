@@ -26,8 +26,6 @@ export class CognitoService {
     }
 
     validateToken(token: string, config: ICognitoConfig): boolean {
-        console.log('VALIDATE TOKEN:')
-        console.log(token)
         const data = jwtDecode(token);
         return data['aud'] == config.cognito_client_id
     }
@@ -62,7 +60,8 @@ export class CognitoService {
             email: data['email'],
             auth_time: data['auth_time'],
             expires: data['exp'],
-            issued_at: data['iat']
+            issued_at: data['iat'],
+            is_expired: false
         };
     }
 

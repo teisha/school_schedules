@@ -8,11 +8,13 @@ export default createContext<{
     token: IAuthToken | null;
     login: (_token: string) => void;
     logout: (_token: string) => void;
+    checkExpired: () => void;
         }>({
             user: null,
             token: null,
             login: (_token: string): void => {},
             logout: (_token: string): void => {},
+            checkExpired: (): void => {}
         });
         
 // <{

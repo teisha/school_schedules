@@ -17,8 +17,6 @@ Globals:
         LOGGING_LEVEL: "INFO"
         DYNAMO_TABLE:
           Ref: DataTable
-        SESSION_TABLE:
-          Ref: SessionTable
 Resources:
   DataTable:
     Type: "AWS::DynamoDB::Table"
@@ -119,7 +117,7 @@ Resources:
                       - index
                       - startIndex
 
-UserApiHandler:
+  UserApiHandler:
     Type: "AWS::Serverless::Function"
     Properties:
       Handler: lambda_user_api.handler

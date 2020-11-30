@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import authContext from '../context/auth-context';
 import ICognitoConfig from '../models/ICognitoConfig';
 import { CognitoService } from '../services/CognitoService'
 
@@ -10,7 +11,7 @@ export type LoginInputs = {
 
 const Login: React.FC<{}> = ()  => {
     const cognito = new CognitoService();    
-
+    const context = useContext(authContext)
 
     // if not cognitoService .isloggeedIn, then call cognitoService.redirectToLogin
 
@@ -18,6 +19,7 @@ const Login: React.FC<{}> = ()  => {
     // const initialValues: LoginInputs = { email: '', password: '', };
 
     const [error, setError] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     console.log(process.env.DYNAMODB)
     console.log(process.env.config)
     console.log('Login through Cognito')
@@ -31,6 +33,18 @@ const Login: React.FC<{}> = ()  => {
         }
     };
 
+    useEffect(  () => {
+        let token = context.token;
+        if (!token && cognito.isUserSignedIn() ){
+            context.login(cognito.getAuthToken())
+            token = context.token;
+        }
+        context.checkExpired()
+        console.log(`Check login: ${token}`)
+        setIsLoggedIn( token == undefined || !token ? false : token.is_expired )
+    }, [])
+
+    
     //   const handleInputChange = (e: React.ChangeEvent<any>) => {
     //     e.persist();
     //     setInputs({
@@ -49,8 +63,8 @@ const Login: React.FC<{}> = ()  => {
             {/* https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
              */}
             {
-                cognito.isUserSignedIn() 
-                    ? <h1> USER IS LOGGED IN </h1>
+                isLoggedIn
+                    ? <h1> {context.user.firstname || context.user.username} IS LOGGED IN </h1>
                     :
                     <form className="container mx-auto max-w-sm" onSubmit={handleSubmit}>
 

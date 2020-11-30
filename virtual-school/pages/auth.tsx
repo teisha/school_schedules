@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useContext } from 'react';
 import { CognitoService } from '../services/CognitoService'
 import ICognitoConfig from '../models/ICognitoConfig';
+import AuthContext from '../context/auth-context';
 
 
 
 const Auth: React.FC<{}> = ()  => {
     const cognito: CognitoService = new CognitoService();    
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const context = useContext(AuthContext)
     const router = useRouter()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     
@@ -23,11 +26,11 @@ const Auth: React.FC<{}> = ()  => {
                 process.env.config as unknown as ICognitoConfig) 
         ){
             cognito.setAuthToken(id_token as string)
+            context.login(id_token);
             setIsLoggedIn(cognito.isUserSignedIn());
         } else {
             router.push('/login');
         }
-
     }, [])
        
     
@@ -48,8 +51,11 @@ const Auth: React.FC<{}> = ()  => {
                     <div className="spinner-border" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
-                </div>    : 
-                <h1> Coming soon - please wait </h1>
+                </div>    :
+                <> 
+                    <h1> Hi {context.user.firstname || context.user.username} ! </h1>
+                    <p> Thank you for loggin in.  You will be redirected shortly.  Please wait.</p>
+                </>
             }
         </>
     )

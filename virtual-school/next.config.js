@@ -9,6 +9,7 @@ if (process.env.NODE_ENV == "development") {
 module.exports = {
     env: {
         DYNAMODB: config.data_table,
+        API_URL: config.api_url,
         config: config.cognito_config
     },
     serverRuntimeConfig: {

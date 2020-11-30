@@ -98,7 +98,7 @@ Resources:
   GetSchedule:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda_get_schedule.handler
+      Handler: alexa_get_schedule.handler
       Runtime: python3.8
       Policies:
       - Version: '2012-10-17'
@@ -117,8 +117,49 @@ Resources:
                 - DataTable
                 - Arn
               - index
-              - typeIndex
-      CodeUri: s3://serverless-deploy-all-lsft-projects/90cc82a0fd33aeb129ec765c664e4700
+              - startIndex
+      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
+  UserApiHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_user_api.handler
+      Runtime: python3.8
+      Policies:
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:DeleteItem
+          Resource:
+          - Fn::GetAtt:
+            - DataTable
+            - Arn
+          - Fn::Join:
+            - /
+            - - Fn::GetAtt:
+                - DataTable
+                - Arn
+              - index
+              - startIndex
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: Api
+            Path: /users/{username}
+            Method: GET
+        PutUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: Api
+            Path: /users/{username}
+            Method: PUT
+      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
   SchedulerApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -143,12 +184,7 @@ Resources:
                 - DataTable
                 - Arn
               - index
-              - typeIndex
-        - Effect: Allow
-          Action:
-          - polly:SynthesizeSpeech
-          Resource:
-          - '*'
+              - startIndex
       Events:
         GetDistricts:
           Type: Api
@@ -206,7 +242,7 @@ Resources:
               Ref: Api
             Path: /scheduler/{districtId}/schedule/{startYear}
             Method: DELETE
-      CodeUri: s3://serverless-deploy-all-lsft-projects/90cc82a0fd33aeb129ec765c664e4700
+      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
