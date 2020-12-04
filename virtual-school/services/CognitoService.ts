@@ -52,6 +52,7 @@ export class CognitoService {
     //   "email": "ahsiet4@yahoo.com"
     // }
     parseIdToken(token: string): IAuthToken {
+        console.log("Parse Id Token")
         const data = jwtDecode(token);
         console.log(data);
         return {

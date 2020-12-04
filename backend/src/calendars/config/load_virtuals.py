@@ -16,6 +16,13 @@ with table.batch_writer() as batch:
     ) 
     batch.put_item(
         Item={
+            'pk':  "VIRTUAL_SCHEDULE|2020|Delia",
+            'sk':  "SETTINGS",
+            'num_weeks':  2,
+            }
+    )     
+    batch.put_item(
+        Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Monday",
             'sync':  ["Math", "Social Studies", "World Language", "Fine Arts"],

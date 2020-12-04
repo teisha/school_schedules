@@ -7,12 +7,13 @@ let cognito;
 
 const setAuthToken = (token: string, state) => {
     const updatedToken: IAuthToken = cognito.parseIdToken(token)
-    console.log(`set AuthToken: ${updatedToken}`)
+    console.log(`set AuthToken: ${JSON.stringify(updatedToken)}`)
     return {...state, token: updatedToken }
 }
 
 const checkTokenExpired = (state) => {
     const updatedToken: IAuthToken = { ...state.token };
+    console.log(`Is this expired?: ${JSON.stringify(updatedToken)} `)
     updatedToken.is_expired = ( Date.now() / 1000) > updatedToken.expires ;
     return {...state, token: updatedToken }
 }

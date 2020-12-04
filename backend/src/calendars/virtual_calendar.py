@@ -84,11 +84,39 @@ class VirtualCalendar:
         week_num: int = int(date.strftime("%U") )
         if date.year > self.start_date.year:
             week_num = 53 + int(date.strftime("%U"))        
-        week = (( week_num - self.week_one ) % 2 ) + 1
+        # week = (( week_num - self.week_one ) % 2 ) + 1
+        week = self.get_week(date)
+        print (f"Current Week {week}, updated week {self.get_week(date)}")
         # print("Day of week: {}, Week Number: {}, week: {}".format(day_of_week, week_num, week))
         week_schedule = next( (item for item in self.virtual_schedule \
             if item["sk"] == "WEEK{week}|{dow}".format(week=week,dow=day_of_week )) )
         return week_schedule
+
+    def get_week(self, date: datetime):
+        week_num: int = int(date.strftime("%U") )
+        num_weeks: int = next( (item for item in self.virtual_schedule if item["sk"] == "SETTINGS" ) )
+        if date.year > self.start_date.year:
+            week_num = 53 + int(date.strftime("%U")) 
+        #  Remove holiday weeks: 
+        week_num = week_num - self.remove_holiday_weeks(date)
+        return (( week_num - self.week_one ) % num_weeks.get("num_weeks", 2) ) + 1
+
+        
+    def remove_holiday_weeks(self, date: datetime):
+        # Thanksgiving, Christmas, New Years, Spring Break
+        # Should define these in school_calendar and pass them
+        weeks_skipped = 0
+        if date > datetime.strptime('11-26-2020', '%m-%d-%Y'):
+            weeks_skipped = weeks_skipped + 1
+        if date > datetime.strptime('12-25-2020', '%m-%d-%Y'):
+            weeks_skipped = weeks_skipped + 1
+        if date > datetime.strptime('01-01-2021', '%m-%d-%Y'):
+            weeks_skipped = weeks_skipped + 1
+        if date > datetime.strptime('03-15-2021', '%m-%d-%Y'):
+            weeks_skipped = weeks_skipped + 1   
+        return weeks_skipped                                             
+
+
 
     '''
         ~~~~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~

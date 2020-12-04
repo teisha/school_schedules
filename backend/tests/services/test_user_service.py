@@ -25,12 +25,13 @@ def test_save_data_successfully(get_db):
     print(result)
     assert result == {'statusCode': 200, 'message': 'Successfully Saved: laimaB'}   
 
-    pk= f'USER|{test_user.get("username")}'
-    sk=test_user.get("email")
+    pk= 'USER'
+    sk=test_user.get("username")
 
     actual_user = service.get_data(pk, sk)
-    assert actual_user.get('pk') == f'USER|{test_user.get("username")}'
-    assert actual_user.get('sk') == test_user.get("email")
+    assert actual_user.get('pk') == 'USER'
+    assert actual_user.get('sk') == test_user.get("username")
+    assert actual_user.get('start') == test_user.get("email")
     assert actual_user.get('status') == 'active'
     assert actual_user.get('students') == []
     assert actual_user.get('firstname') == test_user.get("firstname")

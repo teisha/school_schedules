@@ -9,17 +9,18 @@ from _datetime  import datetime
 service = db.DynamoService(os.environ["DYNAMO_TABLE"])
 
 
-def get_user(username: str, email: str):
-    return service.get_user(f'USER|{username}', email)
+def get_user(username: str):
+    return service.get_user('USER', username)
 
 def save_user(user_data: dict):
-    if user_data.get("username") == None or user_data.get("email") == None:
+    if user_data.get("username") == None :
         return {'statusCode': 400, 'message': "Malformed Request"}
     
     result = service.put_data( 
-        pk=f'USER|{user_data.get("username")}',
-        sk=user_data.get("email"),
-        start=datetime.utcnow().isoformat(),
+        pk='USER',
+        sk=user_data.get("username"),
+        start=user_data.get("email"),    # Index exists on this field
+        date_created=datetime.utcnow().isoformat(),
         status='active',
         students=[],
         firstname=user_data.get("firstname"),                      

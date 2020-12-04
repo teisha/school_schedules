@@ -18,14 +18,14 @@ const Auth: React.FC<{}> = ()  => {
         console.log(window?.location )
         let [baseurl, ...rest] = window.location.href.split("#")
         const router_query = rest.join("#").split("&")
-        const id_token = router_query[0].split("=")[1]
+        const id_token: string = router_query[0].split("=")[1] as string
         // const { id_token, access_token, expires_in , token_type } = router.query
         console.log(`VALIDATE TOKEN: ${id_token}`)
         if (
-            cognito.validateToken(id_token as string,
+            cognito.validateToken(id_token,
                 process.env.config as unknown as ICognitoConfig) 
         ){
-            cognito.setAuthToken(id_token as string)
+            cognito.setAuthToken(id_token)
             context.login(id_token);
             setIsLoggedIn(cognito.isUserSignedIn());
         } else {
@@ -44,6 +44,8 @@ const Auth: React.FC<{}> = ()  => {
     // save AuthToken on context (in hof?)
     // refresh token on expiration -> check expiration in hof
 
+    //if user is logged in and has no userdata, then take them to the profile page to 
+    // finish creating the user...?
     return (
         <>
             {   !isLoggedIn  ?  

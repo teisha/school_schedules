@@ -12,9 +12,11 @@ const GlobalState: React.FC<PropsWithChildren<any>> = (props: PropsWithChildren<
     const [authUserState, userDispatch] = useReducer(userReducer, {user: null});
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    const login = (token: string) => {
-        tokenDispatch({ type: LOGIN, token: token });
-        userDispatch({ type: LOGIN, username: authTokenState.token?.cognito_username, email: authTokenState.token?.email });
+    const login = async (token: string) => {
+        await tokenDispatch({ type: LOGIN, token: token });
+        console.log(`TOKEN In Global State: ${JSON.stringify(authTokenState)}`)
+        await userDispatch({ type: LOGIN, username: authTokenState.token?.cognito_username, email: authTokenState.token?.email });
+        console.log(`USER In Global State: ${JSON.stringify(authUserState)}`)
     };
     const checkExpired = () => {
         tokenDispatch({type: CHECK_EXPIRED})

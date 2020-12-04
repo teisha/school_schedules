@@ -33,15 +33,20 @@ const Login: React.FC<{}> = ()  => {
         }
     };
 
-    useEffect(  () => {
+    useEffect( () => {
         let token = context.token;
-        if (!token && cognito.isUserSignedIn() ){
-            context.login(cognito.getAuthToken())
-            token = context.token;
-        }
-        context.checkExpired()
-        console.log(`Check login: ${token}`)
-        setIsLoggedIn( token == undefined || !token ? false : token.is_expired )
+        console.log(`Check token in localstorage: ${cognito.isUserSignedIn()}`);
+        (async function() {
+            if (!token && cognito.isUserSignedIn() ){
+                console.log("CALL LOGIN - SET TOKEN TO GLOBALSTATE")
+                await context.login(cognito.getAuthToken());
+                token = context.token;
+                console.log(`After login: ${JSON.stringify(context.token)}`)
+            }
+            context.checkExpired()
+            console.log(`Check login: ${token}`)
+            setIsLoggedIn( token == undefined || !token ? false : token.is_expired )
+        })()
     }, [])
 
     
@@ -53,6 +58,8 @@ const Login: React.FC<{}> = ()  => {
     //     });
     //   };
 
+
+    // need ability to create user:
     return (
         <>
             {error ? <p>Error: {error}</p> : null}

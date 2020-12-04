@@ -118,7 +118,7 @@ Resources:
                 - Arn
               - index
               - startIndex
-      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
+      CodeUri: s3://serverless-deploy-all-lsft-projects/5715abc58960e8496e0f1a8100e27381
   UserApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -159,7 +159,7 @@ Resources:
               Ref: Api
             Path: /users/{username}
             Method: PUT
-      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
+      CodeUri: s3://serverless-deploy-all-lsft-projects/5715abc58960e8496e0f1a8100e27381
   SchedulerApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -242,7 +242,7 @@ Resources:
               Ref: Api
             Path: /scheduler/{districtId}/schedule/{startYear}
             Method: DELETE
-      CodeUri: s3://serverless-deploy-all-lsft-projects/8a942f9d8d66cba4b25467cc5eebfc73
+      CodeUri: s3://serverless-deploy-all-lsft-projects/5715abc58960e8496e0f1a8100e27381
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
