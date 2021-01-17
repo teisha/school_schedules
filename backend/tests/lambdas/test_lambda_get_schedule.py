@@ -2,7 +2,7 @@ from _datetime import datetime
 import pytest, os
 from schedule_calculator import Calculator
 os.environ["LOGGING_LEVEL"] ="DEBUG"
-import lambda_get_schedule
+import alexa_get_schedule as lambda_get_schedule
 
 class MockCalculator:
     def __init__ (self, name: str):

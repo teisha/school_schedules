@@ -1,46 +1,24 @@
 {
   "week1": {
     "Monday": {
-      "sync": ["Math", "Social Studies", "World Language", "Fine Arts"],
-      "async": ["English", "Science", "Elective", "PE"]
+      "sync": ["Math", "Social Studies", "World Language"],
+      "async": ["English", "Science", "Elective", "PE", "Fine Arts"]
     },
     "Tuesday": {
-      "async": ["Math", "Social Studies", "World Language", "Fine Arts", "PE"],
-      "sync": ["English", "Science", "Elective", "External Lessons"]
+      "async": ["Math", "Social Studies", "World Language", "PE"],
+      "sync": ["English", "Science", "Elective", "External Lessons", "Fine Arts"]
     },
     "Wednesday": {
-      "sync": ["Math", "Social Studies", "World Language", "Fine Arts"],
-      "async": ["English", "Science", "Elective", "PE"]
+      "sync": ["Math", "Social Studies", "World Language"],
+      "async": ["English", "Science", "Elective", "PE", "Fine Arts"]
     },
     "Thursday": {
       "async": ["Math", "Social Studies", "World Language", "Fine Arts", "PE"],
-      "sync": ["English", "Science", "Elective"]
+      "sync": ["English", "Science", "Elective", "Fine Arts"]
     },
     "Friday": {
-      "sync": ["Math", "Social Studies", "World Language", "Fine Arts"],
-      "async": ["English", "Science", "Elective", "PE"]
-    }
-  },
-  "week2": {
-    "Monday": {
-      "async": ["Math", "Social Studies", "World Language", "Fine Arts", "PE"],
-      "sync": ["English", "Science", "Elective"]
-    },      
-    "Tuesday": {
-      "sync": ["Math", "Social Studies", "World Language", "Fine Arts"],
-      "async": ["English", "Science", "Elective", "PE", "External Lessons"]
-    },
-    "Wednesday": {
-      "async": ["Math", "Social Studies", "World Language", "Fine Arts", "PE"],
-      "sync": ["English", "Science", "Elective"]
-    },
-    "Thursday": {
-      "sync": ["Math", "Social Studies", "World Language", "Fine Arts"],
-      "async": ["English", "Science", "Elective", "PE"]
-    },
-    "Friday": {
-      "async": ["Math", "Social Studies", "World Language", "Fine Arts", "PE"],
-      "sync": ["English", "Science", "Elective"]
+      "sync": ["Math", "Social Studies", "World Language"],
+      "async": ["English", "Science", "Elective", "PE", "Fine Arts"]
     }
   }
 }

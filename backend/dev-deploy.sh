@@ -1,10 +1,10 @@
 REGION=us-east-1
-ENVIRONMENT=prod
+ENVIRONMENT=dev
 S3_BUCKET=serverless-deploy-all-lsft-projects
 STACK_NAME=${ENVIRONMENT}-visual-schedules
 PROFILE=power-user
 
-APP_URL="https://d1kbt2k2lfvcuk.cloudfront.net/"
+APP_URL="http://localhost:4000/"
 
 cd src && \
 /home/linuxbrew/.linuxbrew/bin/sam build && \

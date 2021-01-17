@@ -1,5 +1,5 @@
 import os
-os.environ["DYNAMO_TABLE"] = 'visual-schedules-data-table'
+os.environ["DYNAMO_TABLE"] = 'dev-visual-schedules-data-table'
 os.environ["LOGGING_LEVEL"] = 'DEBUG'
 import pytest
 import services.dynamodb_service as dbs
@@ -13,5 +13,5 @@ os.environ["ALG"] = 'HS256'
 
 @pytest.fixture(scope="module")
 def get_db():
-    table_name = 'visual-schedules-data-table'
+    table_name = 'dev-visual-schedules-data-table'
     return dbs.DynamoService(table_name)

@@ -21,3 +21,11 @@
     font-style: oblique;
     margin-left: 0;
 }
+
+
+.username {
+    background-color: inherit;
+    color: rgb(172, 10, 45);
+    font-weight: bold;
+    margin-left: 0;   
+}

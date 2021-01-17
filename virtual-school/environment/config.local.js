@@ -5,7 +5,6 @@ module.exports = {
         cognito_client_id: '4lkairug2dpj2btanfmvcqtc6h',
         cognito_domain: 'dev-visual-schedules',
         cognito_response_type: 'token',
-        // cognito_redirect_url: 'https://d2oahmuc96rnm5.cloudfront.net/auth',
         cognito_redirect_url: 'http://localhost:4000/auth',
         region: 'us-east-1'
     },

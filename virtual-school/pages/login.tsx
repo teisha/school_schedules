@@ -1,7 +1,11 @@
+import { useRouter } from 'next/dist/client/router';
 import React, { useState, useContext, useEffect } from 'react';
-import authContext from '../context/auth-context';
+import { Button } from 'react-bootstrap';
+import AuthContext from '../context/auth-context';
 import ICognitoConfig from '../models/ICognitoConfig';
+import IUser from '../models/IUser';
 import { CognitoService } from '../services/CognitoService'
+import UserService from '../services/UserService';
 
 
 export type LoginInputs = {
@@ -10,8 +14,10 @@ export type LoginInputs = {
 }
 
 const Login: React.FC<{}> = ()  => {
+    console.log('Login through Cognito')
+    const router = useRouter()
     const cognito = new CognitoService();    
-    const context = useContext(authContext)
+    const context = useContext(AuthContext)
 
     // if not cognitoService .isloggeedIn, then call cognitoService.redirectToLogin
 
@@ -19,10 +25,9 @@ const Login: React.FC<{}> = ()  => {
     // const initialValues: LoginInputs = { email: '', password: '', };
 
     const [error, setError] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [userLoggedIn, setUserLoggedIn] = useState<IUser | null>(null)
     console.log(process.env.DYNAMODB)
     console.log(process.env.config)
-    console.log('Login through Cognito')
 
     const handleSubmit = async (e: any) : Promise<void> => {
         e.preventDefault();
@@ -33,57 +38,118 @@ const Login: React.FC<{}> = ()  => {
         }
     };
 
+    const goHome = () => {
+        console.log(`REDIRECT TO HOME PAGE: ${JSON.stringify(context.user)}`)
+        router.push('/userhome', undefined, { shallow: true });
+    }
+    
     useEffect( () => {
-        let token = context.token;
         console.log(`Check token in localstorage: ${cognito.isUserSignedIn()}`);
+        const token = cognito.parseIdToken(cognito.getAuthToken());
+        console.log(`CALL LOGIN = SET CONTEXT ${JSON.stringify(token)}`);
+        
         (async function() {
-            if (!token && cognito.isUserSignedIn() ){
-                console.log("CALL LOGIN - SET TOKEN TO GLOBALSTATE")
-                await context.login(cognito.getAuthToken());
-                token = context.token;
-                console.log(`After login: ${JSON.stringify(context.token)}`)
-            }
-            context.checkExpired()
-            console.log(`Check login: ${token}`)
-            setIsLoggedIn( token == undefined || !token ? false : token.is_expired )
+            console.log("CALL CONTEXT - SET TOKEN TO GLOBALSTATE")
+            await context.login(cognito.getAuthToken());
+            console.log(`After context: ${JSON.stringify(context.token)}`)
         })()
+        
+        console.log(`Check login: ${JSON.stringify(token)}`)
     }, [])
 
+    useEffect( () => {
+        (async function() {
+            if (context.isLoggedIn) {
+                const username = context.token.cognito_username
+
+                console.log("TOKEN IS VALID; GETTING USER INFO FOR " + username)
+                let user: IUser;
+                try {
+                    const userService: UserService = new UserService()
+                    user = await userService.getUserData(username, context.token.rawtoken)
+                    console.log(`SET CONTEXT USER: ${JSON.stringify(user)}`)
+                    await context.setUserContext(user)
+                    setUserLoggedIn( user );
+                } catch (error) {
+                    console.error("Could not set user");
+                    console.error(error)
+                }
+            }
+            console.log(`Check login state: ${JSON.stringify(context.token)}`)
+        }) ()
+    },
+    [context.isLoggedIn])
+
     
-    //   const handleInputChange = (e: React.ChangeEvent<any>) => {
-    //     e.persist();
-    //     setInputs({
-    //       ...inputs,
-    //       [e.target.name]: e.target.value,
-    //     });
-    //   };
-
-
     // need ability to create user:
     return (
         <>
             {error ? <p>Error: {error}</p> : null}
 
+            <p> Am I logged in? </p>
+            <p>{context.isLoggedIn 
+                ? <Button variant="success" size="sm">Yes</Button> 
+                : <Button variant="danger" size="sm">No</Button> 
+            }</p>
+            <p>
+                { userLoggedIn 
+                ? <span>Registered login to: {userLoggedIn.firstname}</span>
+                : <span>No </span> }
+            </p>            
+          
             {/* Option for Signup - use AdminCreateUser or SignUp action from aws-sdk */}
             {/* Makes sure emails are lowercased */}
             {/* https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html */}
             {/* https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
              */}
             {
-                isLoggedIn
-                    ? <h1> {context.user.firstname || context.user.username} IS LOGGED IN </h1>
-                    :
-                    <form className="container mx-auto max-w-sm" onSubmit={handleSubmit}>
-
-                        <div>
-                            <small><strong>user:</strong> rickety_cricket@example.com</small>
-                            <small><strong>password:</strong> {process.env.NODE_ENV} </small>
-                        </div>
-                        <button type="submit">Go To Login</button>
-                    </form>
+                userLoggedIn
+                ? <> 
+                    <h1> {userLoggedIn.firstname || userLoggedIn.username} IS LOGGED IN </h1>
+                    <Button variant="primary" onClick={goHome} >Home</Button>
+                </>
+                :
+                <form className="container mx-auto max-w-sm" onSubmit={handleSubmit}>
+                    <div>
+                        <small>Click the button to go to Login Page</small>
+                    </div>
+                    <button type="submit">Go To Login</button>
+                </form>
             }
         </>
     )
 }
 
 export default Login;
+
+
+
+
+// useEffect( () => {
+//    ( async () => {
+//         console.log(`Set from context ${JSON.stringify(context.token)}   ${context.token.cognito_username}   ${context.token.rawtoken}`)
+        
+//         try {
+//             const userService: UserService = new UserService()
+//             const user = await userService.getUserData(context.token.cognito_username, context.token.rawtoken)
+//             console.log(`SET CONTEXT USER: ${JSON.stringify(user)}`)
+//             context.setUserContext(user)
+//             // await context.setUserContext(context.token.cognito_username, context.token.rawtoken)
+//         } catch (error) {
+//             console.error("Could not set user");
+//             console.error(error)
+//         }
+//         if (context.user && context.user.firstname !== userLoggedIn) {
+//             console.log(`UPDATE FROM USER CONTEXT: ${JSON.stringify(context.user)}`)
+//             setUserLoggedIn(context.user?.firstname || context.user?.username);
+//         }
+//     }) ()
+// }, [userLoggedIn] )
+
+//   const handleInputChange = (e: React.ChangeEvent<any>) => {
+//     e.persist();
+//     setInputs({
+//       ...inputs,
+//       [e.target.name]: e.target.value,
+//     });
+//   };

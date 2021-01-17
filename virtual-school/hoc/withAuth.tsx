@@ -1,40 +1,38 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { NextPageContext } from 'next';
-import  Router  from 'next/router';
-import React, { Component, useContext, useEffect, useState } from 'react';
+import   { useRouter }  from 'next/router';
+import React, {  useContext, useEffect, useState } from 'react';
 import authContext from '../context/auth-context';
-import IAuthToken from '../models/IAuthToken';
-import {CognitoService} from '../services/CognitoService'
 
-const context = useContext(authContext);
-const cognito = new CognitoService();
 
 const withAuth = (WrappedComponent: any ) => {
-    
     return props => {
-        const [isLoggedIn, setIsLoggedIn] = useState(false)
+        const router = useRouter()
+        const context = useContext(authContext);
+        const [isLoggedIn, setIsLoggedIn] = useState<boolean>(context.isLoggedIn)
+    
+        useEffect( () => {
+            console.log("withAUTH - CHECK EXPIRED");
+            (async function() {
+                const currentPage = router.pathname
+                const isExpired = await context.checkExpired()
+                console.log(context);
+                if ( isExpired ) {
+                    router.push({
+                        pathname: '/auth',
+                        query: { redirectTo: currentPage },
+                    })
+                } else {
+                    console.log("SET LOGIN TO TRUE")
+                    setIsLoggedIn(true)
+                }
+            }) ()
+        }, []) 
 
         useEffect( () => {
-            let token: IAuthToken = context.token;
-            // if the token was lost in the session, but is
-            // in localstorage, load it into the session state
-            if (!token && cognito.isUserSignedIn()) {
-                context.login(cognito.getAuthToken())
-                token = context.token;
-            }
+            setIsLoggedIn(context.isLoggedIn)
+        }, [context])
         
-            context.checkExpired();
-        
-            if (token && !token.is_expired) {
-                // TODO: 
-                // if expired, refresh token 
-                console.log('SIGNED IN!')
-                setIsLoggedIn( true)
-            } else {
-                setIsLoggedIn(  false )
-            }
-        }, [])
-
         const getInitialProps = async (ctx: NextPageContext) => {
             // Check if Page has a `getInitialProps`; if so, call it.
             if (WrappedComponent.getInitialProps){
@@ -47,13 +45,7 @@ const withAuth = (WrappedComponent: any ) => {
         }
 
         return (
-            <div>
-                {isLoggedIn ? (
-                    <div>LOADING....</div>
-                ) : (
-                    <WrappedComponent {...props} />
-                )}
-            </div>
+            <WrappedComponent user={context.user} isLoggedIn={isLoggedIn} {...props} />
         );
     }
 

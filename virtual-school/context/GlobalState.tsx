@@ -1,38 +1,61 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 import { useReducer } from 'react';
+import IAuthToken from '../models/IAuthToken';
+import { CognitoService } from '../services/CognitoService';
 import AuthContext from './auth-context';
 import { tokenReducer, LOGIN, CHECK_EXPIRED } from './token-reducer';
-import { userReducer } from './user-reducer';
-
+import HttpService from '../services/HttpService';
+import IUser from '../models/IUser';
 
 
 const GlobalState: React.FC<PropsWithChildren<any>> = (props: PropsWithChildren<any>) => {
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authTokenState, tokenDispatch] = useReducer(tokenReducer, {token: null} );
-    const [authUserState, userDispatch] = useReducer(userReducer, {user: null});
+    const [user, setUser] = useState<IUser | null >(null)
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const login = async (token: string) => {
-        await tokenDispatch({ type: LOGIN, token: token });
+        const cognito = new CognitoService();
+        const authToken: IAuthToken = cognito.parseIdToken(token)
+        
+        console.log(`CONTEXT SET FROM TOKEN STRING ${JSON.stringify(authToken)}`)
+        await tokenDispatch({ type: LOGIN, token: authToken });
+        if (!authToken.is_expired) {
+            setIsLoggedIn(true);
+        }
         console.log(`TOKEN In Global State: ${JSON.stringify(authTokenState)}`)
-        await userDispatch({ type: LOGIN, username: authTokenState.token?.cognito_username, email: authTokenState.token?.email });
-        console.log(`USER In Global State: ${JSON.stringify(authUserState)}`)
     };
-    const checkExpired = () => {
-        tokenDispatch({type: CHECK_EXPIRED})
-    }
+    
+    const checkExpired = () : boolean => { 
+        let isExpired = true;
+        if (authTokenState.token != null) {
+            isExpired = ( Date.now() / 1000) > authTokenState.expires
+            tokenDispatch({type: CHECK_EXPIRED})
+            setIsLoggedIn(!isExpired)
+            return isExpired
+        }
+        if (isExpired) {
+            setIsLoggedIn(false)
+        }
+        return isExpired
+    };
 
     const logout = () => {
         console.log('Logout')
+        tokenDispatch("LOGOUT")
+        setUser(null)
+        setIsLoggedIn(false)
     }
 
     return (
         <AuthContext.Provider
             value={{
-                user: authUserState.user,
+                user: user,
                 token: authTokenState.token,
                 login: login,
                 logout: logout,
+                isLoggedIn: isLoggedIn,
+                setUserContext: setUser,
                 checkExpired: checkExpired
             }}
         >

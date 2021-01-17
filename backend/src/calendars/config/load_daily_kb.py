@@ -3,7 +3,7 @@ import botocore.session
 
 session = boto3.session.Session(profile_name='power-user')
 dynamodb = session.resource('dynamodb' )
-table = dynamodb.Table('visual-schedules-data-table')
+table = dynamodb.Table('dev-visual-schedules-data-table')
 print(table.creation_date_time)
 
 with table.batch_writer() as batch:

@@ -1,11 +1,8 @@
 /* eslint-disable no-undef */
-
-import Router from 'next/router'
-import ICognitoConfig from '../models/ICognitoConfig'
+import Router from 'next/router';
+import ICognitoConfig from '../models/ICognitoConfig';
 import jwtDecode from 'jwt-decode';
-import IUser from '../models/IUser';
 import IAuthToken from '../models/IAuthToken';
-
 
 export class CognitoService {
     constructor() {}
@@ -27,7 +24,7 @@ export class CognitoService {
 
     validateToken(token: string, config: ICognitoConfig): boolean {
         const data = jwtDecode(token);
-        return data['aud'] == config.cognito_client_id
+        return data['aud'] == config.cognito_client_id;
     }
 
     // ID_TOKEN:
@@ -52,7 +49,7 @@ export class CognitoService {
     //   "email": "ahsiet4@yahoo.com"
     // }
     parseIdToken(token: string): IAuthToken {
-        console.log("Parse Id Token")
+        console.log('Parse Id Token');
         const data = jwtDecode(token);
         console.log(data);
         return {
@@ -62,7 +59,7 @@ export class CognitoService {
             auth_time: data['auth_time'],
             expires: data['exp'],
             issued_at: data['iat'],
-            is_expired: false
+            is_expired: Date.now() / 1000 > data['exp'],
         };
     }
 

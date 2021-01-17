@@ -3,18 +3,24 @@ import { Context, createContext } from 'react';
 import IAuthToken from '../models/IAuthToken';
 import IUser from '../models/IUser';
 
-export default createContext<{
+
+
+const AuthContext = createContext<{
     user: IUser | null;
     token: IAuthToken | null;
     login: (_token: string) => void;
     logout: (_token: string) => void;
-    checkExpired: () => void;
+    isLoggedIn: boolean;
+    setUserContext: (user: IUser) => void;
+    checkExpired: () => boolean;
         }>({
             user: null,
             token: null,
             login: (_token: string): void => {},
             logout: (_token: string): void => {},
-            checkExpired: (): void => {}
+            isLoggedIn: false,
+            setUserContext: (user: IUser): void => {},
+            checkExpired: (): boolean => { return true; }
         });
         
 // <{
@@ -36,3 +42,5 @@ export default createContext<{
 //     < AuthContext.Provider value={{ user }}> {children} </AuthContext.Provider>
 //   );
 // }
+
+export default AuthContext;

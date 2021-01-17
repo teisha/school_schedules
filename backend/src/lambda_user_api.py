@@ -14,20 +14,20 @@ def handler(event: any, context: any):
     return router(event) 
 
 
-def router (event, service=user_service)  
+def router (event, service=user_service):  
     resource = event["resource"]
     method = event["httpMethod"]
 
     if resource == "/users/{username}":
         # Get Districts
         if method == "GET":
-            user_response = service.get_user(event["body"].get("username"))
+            user_response = service.get_user(event["pathParameters"].get("username"))
             return http_service.format_response(200, json.dumps(user_response))
         if method == "PUT":
             user_response = service.save_user(json.loads(event["body"]))
             return http_service.format_response(user_response.get('statusCode'), user_response.get("message"))
 
-        return apiGatewayResponse(404, "Not Found")
+        return http_service.format_response(404, "Not Found")
 
 
 

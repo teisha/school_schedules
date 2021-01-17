@@ -1,3 +1,4 @@
+# venv_linux/bin/python src/calendars/config/load_virtuals.py
 import boto3
 import botocore.session
 
@@ -11,56 +12,58 @@ with table.batch_writer() as batch:
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "SETTINGS",
-            'num_weeks':  2,
+            'num_weeks':  1,
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Delia",
             'sk':  "SETTINGS",
-            'num_weeks':  2,
+            'num_weeks':  1,
             }
     )     
+    #   ---------------- KIERA WEEK 1 --------------------
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Monday",
-            'sync':  ["Math", "Social Studies", "World Language", "Fine Arts"],
-            'async': ["English", "Science", "Elective", "PE"]
+            'sync':  ["Math", "Social Studies", "English", "Elective"],
+            'async': [ "World Language", "Science", "PE", "Fine Arts"]
             }
     )  
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Tuesday",
-            'sync': ["English", "Science", "Elective", "External Lessons"],
-            'async': ["Math", "Social Studies", "World Language", "Fine Arts", "PE"]
+            'sync': ["Science",  "Math", "Fine Arts", "World Language"],
+            'async': ["English", "Social Studies",  "PE", "Elective"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Wednesday",
-            'sync': ["Math", "Social Studies", "World Language", "Fine Arts"] ,
-            'async': ["English", "Science", "Elective", "PE"]
+            'sync': ["Elective", "Social Studies"] ,
+            'async': ["Math", "English", "World Language", "Science", "PE", "Fine Arts"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Thursday",
-            'sync': ["English", "Science", "Elective"],
-            'async': ["Math", "Social Studies", "World Language", "Fine Arts", "PE"]
+            'sync': [ "Science", "Fine Arts", "Math", "Social Studies", "World Language"],
+            'async': ["English", "PE", "Elective"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Friday",
-            'sync': ["Math", "Social Studies", "World Language", "Fine Arts"] ,
-            'async': ["English", "Science", "Elective", "PE"]
+            'sync': ["English"] ,
+            'async': [ "Science", "Elective", "Math", "Social Studies", "Elective", "PE", "Fine Arts", "World Language"]
             }
-    )                    
+    )   
+    #   ---------------- KIERA WEEK 2 --------------------
     batch.put_item(
         Item={
                 'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
@@ -101,6 +104,7 @@ with table.batch_writer() as batch:
             'sync': ["English", "Science", "Elective"]
             }
     )   
+    #   ---------------- DELIA WEEK 1 --------------------
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Delia",
@@ -141,6 +145,7 @@ with table.batch_writer() as batch:
             'async': ["PE","Calendar"]
             }
     )                    
+    #   ---------------- DELIA WEEK 2 --------------------
     batch.put_item(
         Item={
                 'pk':  "VIRTUAL_SCHEDULE|2020|Delia",

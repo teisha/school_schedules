@@ -1,4 +1,4 @@
-import Meta from '../components/Meta'
+
 import Home from '../containers/Home/Home'
 import React from 'react'
 
@@ -6,7 +6,6 @@ import React from 'react'
 function Index() {
     return (
         <>
-            <Meta />
             <Home />
         </>
     )

@@ -6,6 +6,13 @@ Parameters:
     Description: Name of the project, so I can see what these things are
     Type: String
     Default: "virtual-schedules"
+  Environment:
+    Type: String
+    Description: Environment being deployed    
+  FrontEndUrl:
+    Type: String
+    Description: Front End URL for CORS
+
 
 Globals:
   Function:
@@ -14,6 +21,8 @@ Globals:
     CodeUri: .
     Environment:
       Variables:
+        APP_URL: 
+          Ref: FrontEndUrl
         LOGGING_LEVEL: "INFO"
         DYNAMO_TABLE:
           Ref: DataTable

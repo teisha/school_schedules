@@ -1,6 +1,8 @@
 import Router from 'next/router';
 import { useContext } from 'react'
 import authContext from "../context/auth-context"
+import IAuthToken from '../models/IAuthToken';
+import IUser from '../models/IUser';
 import axiosInstance from '../utils/axiosInstance';
 
 interface IGetParams {
@@ -9,16 +11,19 @@ interface IGetParams {
 }
 
 class HttpService {
-    context = useContext(authContext)
+
     
     
-    async get (params: IGetParams): Promise<any> {
-        const app_user = this.context.user ? this.context.user.username : "anonymous"
+    async get (params: IGetParams, username: string, rawtoken: string ): Promise<any> {
+        if ( !username || !rawtoken) {
+            throw new Error("Cannot call backend API")
+        }
+        const app_user = username ? username : "anonymous"
         console.log("GET: " + JSON.stringify(params) )
         try {
             const response = await axiosInstance.get( params.url , {
-                withCredentials: true,
-                headers: { "Authorization": "Bearer " + this.context.token.rawtoken }
+                withCredentials: false,
+                headers: { "Authorization": "Bearer " + rawtoken }
             })
             return response.data
         } catch (error) {
@@ -32,8 +37,11 @@ class HttpService {
         }
     }
 
-    async post (url: string, queryData: any) {
-        const app_user = this.context.user ? this.context.user.username : "anonymous"
+    async post (url: string, queryData: any,  rawtoken: string, user: IUser) {
+        if ( !user || !rawtoken) {
+            throw new Error("Cannot call backend API")
+        }      
+        const app_user = user ? user.username : "anonymous"
         console.log("POST: " + url);
         try {
             const response = await axiosInstance.post(url, {
@@ -41,7 +49,7 @@ class HttpService {
                 responseType: JSON,
                 withCredentials: true
             }, {
-                headers: { "Authorization": "Bearer " + this.context.token.rawtoken }
+                headers: { "Authorization": "Bearer " + rawtoken }
             })
 
             return response.data
