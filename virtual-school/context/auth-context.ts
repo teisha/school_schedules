@@ -5,11 +5,12 @@ import IUser from '../models/IUser';
 
 
 
+
 const AuthContext = createContext<{
     user: IUser | null;
     token: IAuthToken | null;
     login: (_token: string) => void;
-    logout: (_token: string) => void;
+    logout: () => void;
     isLoggedIn: boolean;
     setUserContext: (user: IUser) => void;
     checkExpired: () => boolean;
@@ -17,7 +18,7 @@ const AuthContext = createContext<{
             user: null,
             token: null,
             login: (_token: string): void => {},
-            logout: (_token: string): void => {},
+            logout: (): void => {},
             isLoggedIn: false,
             setUserContext: (user: IUser): void => {},
             checkExpired: (): boolean => { return true; }

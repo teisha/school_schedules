@@ -12,7 +12,7 @@ const Page = (props) => {
                 <div className="col col-2 px-0">
                     <Sidebar />
                 </div>
-                <main className={`col-10 col-md-4 pt-3 px-0 ${styles.main}`}>
+                <main className={`col-10 pt-3 px-0 ${styles.main}`}>
                     {props.children}
                 </main>
             </div>

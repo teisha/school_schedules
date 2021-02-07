@@ -28,44 +28,45 @@ const Auth: React.FC<{}> = ()  => {
         if (!id_token ) {
             console.log("No token found - go to login page.")
             router.push('/login', undefined, { shallow: true });
-        }
-        (async (): Promise<void> => {
-            const token = cognito.parseIdToken(id_token);
-            if (
-                cognito.validateToken(id_token,
-                    process.env.config as unknown as ICognitoConfig) &&
-                !token.is_expired
-            ){
-                cognito.setAuthToken(id_token)  //sets in localstorage
-                await context.login(id_token);
-                console.log(`Set ${token.cognito_username} ${JSON.stringify(context.user)}`)
-    
-                let user: IUser;
-                try {
-                    const userService: UserService = new UserService()
-                    user = await userService.getUserData(token.cognito_username, token.rawtoken)
-                    console.log(`SET USER TO CONTEXT FROM AUTH: ${JSON.stringify(user)}`)
-                    await context.setUserContext(user)
-                } catch (error) {
-                    console.error('Could not set user');
-                    console.error(error)
-                }
-                
-                await setUserLoggedIn(user.firstname || user.username);
-                console.log("AUTH - TOKEN SET IN CONTEXT: ", context.token)
-                console.log("AUTH - USER SET IN CONTEXT: ", context.user)
-                if (router.query?.redirectTo) {
-                    const url = router.query.redirectTo as string
-                    console.log("REDIRECT: " + url)
-                    router.push(url, undefined, { shallow: true });
+        } else {
+            (async (): Promise<void> => {
+                const token = cognito.parseIdToken(id_token);
+                if (
+                    cognito.validateToken(id_token,
+                        process.env.config as unknown as ICognitoConfig) &&
+                    !token.is_expired
+                ){
+                    cognito.setAuthToken(id_token)  //sets in localstorage
+                    await context.login(id_token);
+                    console.log(`Set ${token.cognito_username} ${JSON.stringify(context.user)}`)
+        
+                    let user: IUser;
+                    try {
+                        const userService: UserService = new UserService()
+                        user = await userService.getUserData(token.cognito_username, token.rawtoken)
+                        console.log(`SET USER TO CONTEXT FROM AUTH: ${JSON.stringify(user)}`)
+                        await context.setUserContext(user)
+                    } catch (error) {
+                        console.error('Could not set user');
+                        console.error(error)
+                    }
+                    
+                    await setUserLoggedIn(user.firstname || user.username);
+                    console.log("AUTH - TOKEN SET IN CONTEXT: ", context.token)
+                    console.log("AUTH - USER SET IN CONTEXT: ", context.user)
+                    if (router.query?.redirectTo) {
+                        const url = router.query.redirectTo as string
+                        console.log("REDIRECT: " + url)
+                        router.push(url, undefined, { shallow: true });
+                    } else {
+                        console.log("REDIRECT to userhome")
+                        router.push('/userhome', undefined, { shallow: true });
+                    }
                 } else {
-                    console.log("REDIRECT to userhome")
-                    router.push('/userhome', undefined, { shallow: true });
+                    router.push('/login', undefined, { shallow: true });
                 }
-            } else {
-                router.push('/login', undefined, { shallow: true });
-            }
-        }) ()
+            }) ()
+        }
     }, [])
     
     
@@ -96,21 +97,10 @@ const Auth: React.FC<{}> = ()  => {
     // token_type=Bearer
 
 
-    // Need higher order function to guard routes
-    // save AuthToken on context (in hof?)
-    // refresh token on expiration -> check expiration in hof
-
     //if user is logged in and has no userdata, then take them to the profile page to 
     // finish creating the user...?
     return (
         <>
-            <p>
-                {JSON.stringify(context.user)} ... validating login
-
-                {context.isLoggedIn
-                ? <span> Login Successful </span>
-                : <span> Login Not Successful </span> }
-            </p>
             {   !userLoggedIn  ?  
                 <div className="text-center">
                     <div className="spinner-border" role="status">

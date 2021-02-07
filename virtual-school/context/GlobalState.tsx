@@ -4,7 +4,6 @@ import IAuthToken from '../models/IAuthToken';
 import { CognitoService } from '../services/CognitoService';
 import AuthContext from './auth-context';
 import { tokenReducer, LOGIN, CHECK_EXPIRED } from './token-reducer';
-import HttpService from '../services/HttpService';
 import IUser from '../models/IUser';
 
 
@@ -64,4 +63,5 @@ const GlobalState: React.FC<PropsWithChildren<any>> = (props: PropsWithChildren<
     );
 };
 
+AuthContext.displayName = 'AuthContext';
 export default GlobalState

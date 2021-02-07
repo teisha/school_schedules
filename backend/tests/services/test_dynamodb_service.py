@@ -22,6 +22,8 @@ item={
 # Run tests from src directory /c/git/school_schedules/backend/src
 # ../venv_linux/bin/python -m pytest -s ../tests/services/test_dynamodb_service.py
 # python -m pytest -s tests/services/test_dynamodb_service.py >> printout.txt
+# ../venv_linux/bin/python -m pytest -s ../tests/services/test_dynamodb_service.py -k "sortKey"
+
 class TestDynamoService:
 
     def test_get_data(self, get_db):
@@ -32,6 +34,20 @@ class TestDynamoService:
         # print ('Gathering Friendswood Data')
         print(actual_item)
         assert actual_item == item           
+
+    def test_get_data_by_sortKey(self, get_db):
+        self.service = get_db
+
+        print("|".join(['SCHOOL', ""]))
+        actual_item = self.service.queryOnSortKey('SCHEDULE')
+        expected_item = dict({
+            'pk':  "SCHOOL|2020|FISD",
+            'sk':  "SCHEDULE",
+            'start':  "08/31/2020",
+            'end':  "05/27/2021"
+            })
+        print(actual_item)
+        assert actual_item == [expected_item]          
 
     def test_put_data(self, get_db):
         self.service = get_db

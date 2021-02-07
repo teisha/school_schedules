@@ -27,42 +27,44 @@ with table.batch_writer() as batch:
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Monday",
-            'sync':  ["Math", "Social Studies", "English", "Elective"],
-            'async': [ "World Language", "Science", "PE", "Fine Arts"]
+            'sync':  ["World Language", "Math"],
+            'async': [ "Elective", "Science", "PE", "Fine Arts", "Social Studies", "English"]
             }
     )  
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Tuesday",
-            'sync': ["Science",  "Math", "Fine Arts", "World Language"],
-            'async': ["English", "Social Studies",  "PE", "Elective"]
+            'sync': ["Science", "Fine Arts", "World Language", "Social Studies", "Elective"],
+            'async': ["English",  "PE",  "Math"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Wednesday",
-            'sync': ["Elective", "Social Studies"] ,
-            'async': ["Math", "English", "World Language", "Science", "PE", "Fine Arts"]
+            'sync': [ "Social Studies", "Math"] ,
+            'async': ["Elective", "English", "World Language", "Science", "PE", "Fine Arts"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Thursday",
-            'sync': [ "Science", "Fine Arts", "Math", "Social Studies", "World Language"],
-            'async': ["English", "PE", "Elective"]
+            'sync': ["English", "Science", "Fine Arts", "Social Studies", "World Language", "Elective"],
+            'async': [ "PE", "Math"]
             }
     ) 
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",
             'sk':  "WEEK1|Friday",
-            'sync': ["English"] ,
-            'async': [ "Science", "Elective", "Math", "Social Studies", "Elective", "PE", "Fine Arts", "World Language"]
+            'sync': ["English", "Math"] ,
+            'async': [ "Science", "Social Studies", "Elective", "PE", "Fine Arts", "World Language"]
             }
     )   
+
+
     #   ---------------- KIERA WEEK 2 --------------------
     batch.put_item(
         Item={

@@ -37,12 +37,11 @@ class HttpService {
         }
     }
 
-    async post (url: string, queryData: any,  rawtoken: string, user: IUser) {
-        if ( !user || !rawtoken) {
-            throw new Error("Cannot call backend API")
+    async post (url: string, queryData: any,  rawtoken: string, username: string) {
+        if ( !rawtoken) {
+            throw new Error("Cannot call backend API without security token")
         }      
-        const app_user = user ? user.username : "anonymous"
-        console.log("POST: " + url);
+        console.log(`${username}:: POST: ${url}`);
         try {
             const response = await axiosInstance.post(url, {
                 data: queryData,
@@ -54,7 +53,7 @@ class HttpService {
 
             return response.data
         } catch (error) {
-            console.error(`Failed to save ${JSON.stringify(queryData)} at ${url} for ${app_user}`)
+            console.error(`${username}:: Failed to post ${JSON.stringify(queryData)} to ${url}`)
             console.error(JSON.stringify(error))
             if (error.response && error.response.status === 401) {
                     Router.push('/login?redirected=true')

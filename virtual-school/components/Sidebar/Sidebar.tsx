@@ -21,9 +21,15 @@ const Sidebar: FunctionComponent<Props> = ({}): ReactElement => {
                 <li
                     className={`list-group-item list-group-item-action ${classes.menuItem}`}
                 >
-                    <Link as={'/login'} href="/login">
-            Login
+                    {context.isLoggedIn 
+                    ? 
+                    <Link as={'/logout'} href="/logout">
+                        Logout
                     </Link>
+                    : <Link as={'/login'} href="/login">
+                        Login
+                    </Link>
+                }
                 </li>
                 <li
                     className={`list-group-item list-group-item-action ${classes.menuItem}`}

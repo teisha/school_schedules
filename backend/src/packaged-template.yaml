@@ -126,7 +126,7 @@ Resources:
                 - Arn
               - index
               - startIndex
-      CodeUri: s3://serverless-deploy-all-lsft-projects/22b9365edf258e2716ee433b3bd36117
+      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
   UserApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -167,7 +167,7 @@ Resources:
               Ref: Api
             Path: /users/{username}
             Method: PUT
-      CodeUri: s3://serverless-deploy-all-lsft-projects/22b9365edf258e2716ee433b3bd36117
+      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
   SchedulerApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -200,7 +200,7 @@ Resources:
             RestApiId:
               Ref: Api
             Path: /scheduler
-            Method: GET
+            Method: POST
         GetDistrict:
           Type: Api
           Properties:
@@ -250,7 +250,7 @@ Resources:
               Ref: Api
             Path: /scheduler/{districtId}/schedule/{startYear}
             Method: DELETE
-      CodeUri: s3://serverless-deploy-all-lsft-projects/22b9365edf258e2716ee433b3bd36117
+      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -289,7 +289,11 @@ Resources:
       - openid
       - profile
       CallbackURLs:
+      - http://localhost:4000/auth
       - Fn::Sub: https://${ClientCloudFrontDistro.DomainName}/auth
+      LogoutURLs:
+      - http://localhost:4000/
+      - Fn::Sub: https://${ClientCloudFrontDistro.DomainName}
       AllowedOAuthFlowsUserPoolClient: true
   CognitoDomain:
     Type: AWS::Cognito::UserPoolDomain

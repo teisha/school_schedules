@@ -198,7 +198,7 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /scheduler
-            Method: GET
+            Method: POST
         GetDistrict:      
           # pass back school list and district schedule
           Type: Api
@@ -280,7 +280,11 @@ Resources:
         - openid
         - profile
       CallbackURLs:
+        - http://localhost:4000/auth
         - !Sub https://${ClientCloudFrontDistro.DomainName}/auth
+      LogoutURLs:
+        - http://localhost:4000/
+        - !Sub https://${ClientCloudFrontDistro.DomainName}
       AllowedOAuthFlowsUserPoolClient: true
   CognitoDomain:
     Type: AWS::Cognito::UserPoolDomain

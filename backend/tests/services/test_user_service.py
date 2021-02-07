@@ -12,7 +12,11 @@ class MockDynamo:
 # Run tests from src directory /c/git/school_schedules/backend/src
 # ../venv_linux/bin/python -m pytest -s ../tests/services/test_user_service.py
 
-test_user = dict(username="laimaB",email="ahsiet4@yahoo.com",firstname="Laima")
+test_user = dict(username="laimaB",
+    email="ahsiet4@yahoo.com",
+    firstname="Laima", 
+    students=[dict(studentName="Kiera", district="FISD"),
+        dict(studentName="Delia",district="FISD")])
 
 def test_save_data_without_key_returns_400():
     result = userv.save_user( dict() )
@@ -33,7 +37,8 @@ def test_save_data_successfully(get_db):
     assert actual_user.get('sk') == test_user.get("username")
     assert actual_user.get('start') == test_user.get("email")
     assert actual_user.get('status') == 'active'
-    assert actual_user.get('students') == []
+    assert actual_user.get('students') == [dict(studentName="Kiera", district="FISD"),
+        dict(studentName="Delia",district="FISD")]
     assert actual_user.get('firstname') == test_user.get("firstname")
     assert actual_user.get('lastname') == None
 

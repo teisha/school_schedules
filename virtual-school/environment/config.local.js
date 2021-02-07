@@ -2,6 +2,7 @@
 module.exports = {
     data_table: 'dev-visual-schedules-data-table',
     cognito_config: {
+        cognito_state: "On 3 October, demonstrators removed police cordons around the parliament",
         cognito_client_id: '4lkairug2dpj2btanfmvcqtc6h',
         cognito_domain: 'dev-visual-schedules',
         cognito_response_type: 'token',

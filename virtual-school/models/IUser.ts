@@ -1,3 +1,4 @@
+import { IStudent } from './IStudent';
 
 export default interface IUser {
     username: string;
@@ -5,6 +6,6 @@ export default interface IUser {
     firstname?: string;
     lastname?: string;
     email: string;
-    students?: string[];
+    students?: IStudent[];
     date_created?: Date;
 }

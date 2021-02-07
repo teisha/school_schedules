@@ -37,7 +37,13 @@ class DynamoService:
     def queryOnPrimaryKey(self, key):
         return self._table.query(
             KeyConditionExpression=Key("pk").eq(key)
-        )["Items"]        
+        )["Items"]    
+
+    def queryOnSortKey(self, key):
+        return self._table.query(
+            IndexName="GSI1",
+            KeyConditionExpression=Key("sk").eq(key)
+        )["Items"]   
 
     def update_data (self, pk: str, sk: str, update_field: str, update_value):
         key = {

@@ -2,6 +2,7 @@
 module.exports = {
     data_table: 'visual-schedules-data-table',
     cognito_config: {
+        cognito_state: "The army, which had initially declared its neutrality, stormed the Supreme Soviet building",
         cognito_client_id: '7p1g2ho5eslm2vea7jf8o8f2ao',
         cognito_domain: 'visual-schedules',
         cognito_response_type: 'token',

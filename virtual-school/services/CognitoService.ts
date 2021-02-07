@@ -86,11 +86,19 @@ export class CognitoService {
     // }
 
     async redirectToSignIn(config: ICognitoConfig): Promise<void> {
-        const url = `https://${config.cognito_domain}.auth.${config.region}.amazoncognito.com/login?response_type=${config.cognito_response_type}&client_id=${config.cognito_client_id}&redirect_uri=${config.cognito_redirect_url}`;
+        const url = `https://${config.cognito_domain}.auth.${config.region}.amazoncognito.com/login?response_type=${config.cognito_response_type}&client_id=${config.cognito_client_id}&redirect_uri=${config.cognito_redirect_url}&state=${config.cognito_state}`;
         console.log(url);
         if (!process.env.REGION) {
             await Router.push('/index');
         }
+        window.location.href = url;
+    }
+
+    async logout(config: ICognitoConfig): Promise<void> {
+        const logout_uri = `${config.cognito_redirect_url.replace('auth', '')}`
+        const url = `https://${config.cognito_domain}.auth.${config.region}.amazoncognito.com/logout?client_id=${config.cognito_client_id}&logout_uri=${logout_uri}&state=${config.cognito_state}`
+        console.log(`LOGOUT ${url}`);
+        this.setAuthToken('');
         window.location.href = url;
     }
 }

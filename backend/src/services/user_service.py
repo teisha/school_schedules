@@ -22,7 +22,7 @@ def save_user(user_data: dict):
         start=user_data.get("email"),    # Index exists on this field
         date_created=datetime.utcnow().isoformat(),
         status='active',
-        students=[],
+        students=user_data.get("students"),
         firstname=user_data.get("firstname"),                      
         lastname=user_data.get("lastname") 
     )
