@@ -4,7 +4,7 @@ S3_BUCKET=serverless-deploy-all-lsft-projects
 STACK_NAME=${ENVIRONMENT}-visual-schedules
 PROFILE=power-user
 
-APP_URL="http://localhost:4000/"
+APP_URL="https://d2oahmuc96rnm5.cloudfront.net/"
 
 cd src && \
 /home/linuxbrew/.linuxbrew/bin/sam build && \

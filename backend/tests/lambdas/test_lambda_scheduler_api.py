@@ -1,5 +1,6 @@
 import lambda_scheduler_api
 import json
+from services import virtual_calendar_service
 
 # Run tests from src directory /c/git/school_schedules/backend/src
 # ../venv_linux/bin/python -m pytest -s ../tests/lambdas/test_lambda_scheduler_api.py
@@ -25,7 +26,28 @@ def test_get_schedule():
     assert len(full_schedule.get("virtual")) == 11
     assert full_schedule.get("daily") != None
     assert len(full_schedule.get("daily")) == 8
-    
+
+
+def test_convert_virtual_schedule():
+    schedule = { 
+        "student":"Kiera",
+        "year":"2020",
+        "num_weeks":"1",
+        "day":"Friday",
+        "sync_categories":["English","Math","Elective"],
+        "async_categories":["Science","Social Studies","PE","Fine Arts","World Language"]
+    }    
+    converted_service = virtual_calendar_service.convert_to_db_object(schedule)
+    assert converted_service.get('pk') == "VIRTUAL_SCHEDULE|2020|Kiera"
+    assert converted_service.get('sk') == "WEEK1|Friday"
+    assert converted_service.get('sync') == ["English","Math","Elective"]
+    assert converted_service.get('async') == ["Science","Social Studies","PE","Fine Arts","World Language"]
+
+
+def test_save_virtual_schedule():
+    body= {'schedule': {'student': 'Delia', 'year': '2020', 'num_weeks': '1', 'day': 'Tuesday', 'sync_categories': ['Quest', 'OTPT-Speech', 'Calendar'], 'async_categories': ['PE']}}
+    result=lambda_scheduler_api.save_virtual_calendar(body)
+    assert result.get("statusCode") == 200
 
 def test_convert_json() :
     json_val = [

@@ -95,8 +95,8 @@ export class CognitoService {
     }
 
     async logout(config: ICognitoConfig): Promise<void> {
-        const logout_uri = `${config.cognito_redirect_url.replace('auth', '')}`
-        const url = `https://${config.cognito_domain}.auth.${config.region}.amazoncognito.com/logout?client_id=${config.cognito_client_id}&logout_uri=${logout_uri}&state=${config.cognito_state}`
+        const logout_uri = `${config.cognito_redirect_url.replace('/auth', '').replace('.html','')}`
+        const url = `https://${config.cognito_domain}.auth.${config.region}.amazoncognito.com/logout?client_id=${config.cognito_client_id}&logout_uri=${logout_uri}`
         console.log(`LOGOUT ${url}`);
         this.setAuthToken('');
         window.location.href = url;

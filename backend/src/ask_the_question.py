@@ -8,7 +8,7 @@ class Questioner:
     def __init__(self):
         print(" ")
         self.today = datetime.now()
-        os.environ["DYNAMO_TABLE"] = 'visual-schedules-data-table'
+        os.environ["DYNAMO_TABLE"] = 'prod-visual-schedules-data-table'
 
     def what_is_my_schedule(self, student: str, date: datetime) :
         calculator = Calculator(student)

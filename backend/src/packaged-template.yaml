@@ -126,7 +126,7 @@ Resources:
                 - Arn
               - index
               - startIndex
-      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
+      CodeUri: s3://serverless-deploy-all-lsft-projects/1919f2f2844d0a703ed3ce0ff86fb987
   UserApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -167,7 +167,7 @@ Resources:
               Ref: Api
             Path: /users/{username}
             Method: PUT
-      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
+      CodeUri: s3://serverless-deploy-all-lsft-projects/1919f2f2844d0a703ed3ce0ff86fb987
   SchedulerApiHandler:
     Type: AWS::Serverless::Function
     Properties:
@@ -229,28 +229,14 @@ Resources:
               Ref: Api
             Path: /scheduler/{districtId}/schools/{schoolId}
             Method: DELETE
-        PostDistrictSchedules:
+        SaveVirtualSchedule:
           Type: Api
           Properties:
             RestApiId:
               Ref: Api
-            Path: /scheduler/{districtId}/schedule
+            Path: /scheduler/virtual
             Method: POST
-        PutDistrictSchedules:
-          Type: Api
-          Properties:
-            RestApiId:
-              Ref: Api
-            Path: /scheduler/{districtId}/schedule
-            Method: PUT
-        DeleteDistrictSchedules:
-          Type: Api
-          Properties:
-            RestApiId:
-              Ref: Api
-            Path: /scheduler/{districtId}/schedule/{startYear}
-            Method: DELETE
-      CodeUri: s3://serverless-deploy-all-lsft-projects/e51b8c0ed08e086e6b3a30871b53b2f0
+      CodeUri: s3://serverless-deploy-all-lsft-projects/1919f2f2844d0a703ed3ce0ff86fb987
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -289,8 +275,8 @@ Resources:
       - openid
       - profile
       CallbackURLs:
-      - http://localhost:4000/auth
-      - Fn::Sub: https://${ClientCloudFrontDistro.DomainName}/auth
+      - http://localhost:4000/auth.html
+      - Fn::Sub: https://${ClientCloudFrontDistro.DomainName}/auth.html
       LogoutURLs:
       - http://localhost:4000/
       - Fn::Sub: https://${ClientCloudFrontDistro.DomainName}
@@ -388,7 +374,7 @@ Outputs:
   BackendUrl:
     Description: API Gateway backend URL
     Value:
-      Fn::Sub: https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${ProjectName}-1.0/
+      Fn::Sub: https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${ProjectName}/
   HostBucket:
     Description: S3 bucket created to hold frontend.
     Value:
@@ -398,3 +384,7 @@ Outputs:
       after deploy
     Value:
       Ref: ClientCloudFrontDistro
+  TableName:
+    Description: The name of the table
+    Value:
+      Ref: DataTable

@@ -1,9 +1,9 @@
 
 let config = {}
-if (process.env.NODE_ENV == "development") {
-    config = require("./environment/config.development.js")
+if (process.env.NODE_ENV == "local") {
+    config = require("./environment/config.local.js")
 } else {
-    config = require("./envitonment/config.production.js")
+    config = require("./environment/config.js")
 }
 
 module.exports = {

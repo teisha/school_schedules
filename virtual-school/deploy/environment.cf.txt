@@ -1,0 +1,12 @@
+module.exports = {
+    data_table: '${TABLENAME}',
+    cognito_config: {
+        cognito_state: "On 3 October, demonstrators removed police cordons around the parliament",
+        cognito_client_id: '${COGNITOCLIENTID}',
+        cognito_domain: '${COGNITODOMAIN}',
+        cognito_response_type: 'token',
+        cognito_redirect_url: '${COGNTIOREDIRECTURI}.html',
+        region: '${AWSREGION}'
+    },
+    api_url: '${BACKENDURL}'
+}

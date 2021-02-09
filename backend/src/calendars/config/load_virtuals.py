@@ -4,10 +4,31 @@ import botocore.session
 
 session = boto3.session.Session(profile_name='power-user')
 dynamodb = session.resource('dynamodb' )
-table = dynamodb.Table('visual-schedules-data-table')
+table = dynamodb.Table('prod-visual-schedules-data-table')
 print(table.creation_date_time)
 
 with table.batch_writer() as batch:
+    batch.put_item(
+        {
+        "date_created": "2021-01-25T04:05:27.521309",
+        "firstname": "Laima",
+        "lastname": "B",
+        "pk": "USER",
+        "sk": "laimaB",
+        "start": "ahsiet4@yahoo.com",
+        "status": "active",
+        "students": [
+            {
+            "district": "FISD",
+            "studentName": "Kiera"
+            },
+            {
+            "district": "FISD",
+            "studentName": "Delia"
+            }
+        ]
+        }
+    )
     batch.put_item(
         Item={
             'pk':  "VIRTUAL_SCHEDULE|2020|Kiera",

@@ -36,11 +36,38 @@ def schedule_router (event):
             try:
                 response = get_full_calendar(body.get("data"))
                 return http_service.format_response(200, response)
-            except Error as e:
+            except ValueError as e:
                 print("ERROR in schedule api!")
                 print(e)
                 print(sys.exc_info()[0])
-                return  http_service.format_response(500, "Could not find a schedule for {} on {}".format(kidname, year) )
+                return  http_service.format_response(500, "Could not find a schedule for {} ".format(body) )
+            else: 
+                print ("Could not find schedule:")
+                return  http_service.format_response(500, "Could not find a schedule for {} ".format(body) )
+    elif resource == "/scheduler/virtual":
+        if method == "POST":
+            body = json.loads(event["body"])
+            try:
+                response = save_virtual_calendar(body.get("data"))
+                return http_service.format_response(response.get("statusCode"), response)
+            except ValueError as e:
+                print("ERROR saving virtual schedule")
+                print(e)
+                print(sys.exc_info()[0])
+                return  http_service.format_response(500, "Could not save virtual schedule for {} ".format(body) )
+            else: 
+                print ("Could not save virtual schedule:")
+                return  http_service.format_response(500, "Could not save virtual schedule for {} ".format(body) )
+
+
+
+# {"schedule":{"student":"Kiera","year":"2020","num_weeks":"1","day":"Friday","sync_categories":["English","Math","Elective"],"async_categories":["Science","Social Studies","PE","Fine Arts","World Language"]}} 
+def save_virtual_calendar(body: dict):
+    print(body)
+    updated_schedule= body.get('schedule')
+    result = virtual.save_calendar(updated_schedule)
+    print(result)
+    return result
 
 
 

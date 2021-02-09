@@ -224,25 +224,14 @@ Resources:
             RestApiId: !Ref Api
             Path: "/scheduler/{districtId}/schools/{schoolId}"
             Method: DELETE
-
-        PostDistrictSchedules:
+        SaveVirtualSchedule:
           Type: Api
           Properties:
             RestApiId: !Ref Api
-            Path: "/scheduler/{districtId}/schedule"
+            Path: "/scheduler/virtual"
             Method: POST
-        PutDistrictSchedules:
-          Type: Api
-          Properties:
-            RestApiId: !Ref Api
-            Path: "/scheduler/{districtId}/schedule"
-            Method: PUT
-        DeleteDistrictSchedules:
-          Type: Api
-          Properties:
-            RestApiId: !Ref Api
-            Path: "/scheduler/{districtId}/schedule/{startYear}"
-            Method: DELETE            
+
+       
   SchedulerApiPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -280,8 +269,8 @@ Resources:
         - openid
         - profile
       CallbackURLs:
-        - http://localhost:4000/auth
-        - !Sub https://${ClientCloudFrontDistro.DomainName}/auth
+        - http://localhost:4000/auth.html
+        - !Sub https://${ClientCloudFrontDistro.DomainName}/auth.html
       LogoutURLs:
         - http://localhost:4000/
         - !Sub https://${ClientCloudFrontDistro.DomainName}
@@ -371,11 +360,14 @@ Outputs:
     Value: !Sub ${ProjectName}
   BackendUrl:
     Description: API Gateway backend URL
-    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${ProjectName}-1.0/"
+    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${ProjectName}/"
   HostBucket:
     Description: S3 bucket created to hold frontend.
     Value: !Ref ClientHostBucket
   CognitoDistributionId:
     Description: The ID of the Cloudfront Distribution used to invalidate front end after deploy
     Value: !Ref ClientCloudFrontDistro
+  TableName:
+    Description: The name of the table
+    Value: !Ref DataTable
 

@@ -19,7 +19,9 @@ def save_calendar(virtual_calendar: dict):
             'statusCode': 400, 
             'message': "Malformed Request"
         }
-    result = service.put_data(convert_to_db_object(virtual_calendar)) 
+    db_object = convert_to_db_object(virtual_calendar)
+    result = service.put_data(db_object.get('pk'), db_object.get('sk'), 
+        **{'sync':db_object.get('sync'), 'async': db_object.get('async')} ) 
     print(result)
     message = f'Successfully Saved: {virtual_calendar.get("student")} virtual calendar' if result.get('http_status') == 200 else \
         f'An error occurred while saving {virtual_calendar.get("student")} virtual calendar'
@@ -61,4 +63,5 @@ def convert_to_db_object(schedule_data: dict):
     else:
         db_object.update({ 'sync': schedule_data.get("sync_categories") })   
         db_object.update({ 'async':schedule_data.get("async_categories") })
+    print(db_object)        
     return db_object
